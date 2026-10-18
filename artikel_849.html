@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidence for multi-Li<sup>+</sup> clustering in lithium-ion battery electrolytes</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 30px auto; padding: 20px; background: #fff; line-height: 1.6; }
+        .back-btn { display: inline-block; margin-bottom: 20px; text-decoration: none; color: #fff; background: #0d6efd; padding: 8px 15px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">&larr; Kembali ke Beranda</a>
+    <h1>Evidence for multi-Li<sup>+</sup> clustering in lithium-ion battery electrolytes</h1>
+    <hr style="border:0; height:1px; background:#ddd; margin: 20px 0;">
+    
+            <div style="text-align:center; margin-bottom:20px;"><img src="https://media.springernature.com/m685/springer-static/image/art%3A10.1038%2Fs41586-026-11138-7/MediaObjects/41586_2026_11138_Fig1_HTML.png" style="max-width:100%; height:auto; border-radius:8px;"></div>
+            
+<div style="text-align:center; margin:20px 0;">
+    <script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js"></script>
+</div>
+
+            <div class="article-body" style="font-size: 16px; line-height: 1.8; color: #333;">
+                <p>Thank you for visiting nature.com. You are using a browser version with limited support for CSS. To obtain
+            the best experience, we recommend you use a more up to date browser (or turn off compatibility mode in
+            Internet Explorer). In the meantime, to ensure continued support, we are displaying the site without styles
+            and JavaScript.</p>
+<p>Nature
+volume 658, pages 636–642 (2026) Cite this article</p>
+<p>In lithium-ion batteries, the bulk solvation structure of the electrolyte is a major determinant of the physical and electrochemical properties of the cell, for example, conductivity, viscosity, salt dissociation and subsequent reactivity, the electrochemical stability window (and thus solid electrolyte interphase formation), and the composition of the electrochemical double layer1,2,3. However, elucidation of this structure at an atomic level of detail has been challenging to accomplish via a purely experimental approach. Here we combine machine-learning-enabled atomistic simulations4,5,6,7,8,9,10,11,12,13,14,15,16, nuclear magnetic resonance spectroscopy, electrochemical data3,17,18,19,20 and quantum-chemical calculations to reveal previously unstudied multi-Li+ complexes without bound anions that are uniquely facile for reduction. This insight explains the success of empirically chosen ethylene-carbonate-containing solvent mixtures and provides a foundation for the rational design of improved electrolytes. Furthermore, our machine-learning force-field-based lithium-ion-battery electrolyte simulations accurately reproduce a wide range of condensed-phase experiments3,21,22,23,24, despite being parameterized to only quantum-chemical gas-phase cluster calculations, and hence provide a compelling demonstration that machine-learning force-field-based models developed from first principles can robustly represent a complex chemical system to atomic resolution.</p>
+<p>Over the past 10 years there has been intense interest in carrying out molecular dynamics simulations of lithium-ion battery (LIB) electrolytes, which in principle can yield a complete picture of electrolyte structure and dynamics. However, traditional molecular mechanics force fields, such as those used successfully for biomolecular simulation of protein–ligand binding25,26,27, may not be well suited to describing the complexities of LIB chemistry. Specifically, the physical chemistry of Li+ solvation and dynamics in concentrated, polar organic electrolytes is vastly different from that of aqueous biomolecular species. Ab initio molecular dynamics (AIMD) approaches are an alternative, but suffer from severe limitations in the system sizes, simulation timescales and accuracy of the density functional theory (DFT) functional that can be accessed28,29.</p>
+<p>The past decade has seen the creation and evolution of a methodology for constructing force fields for complex chemical systems, which holds the promise of replicating the accuracy of high-level ab initio quantum chemistry, while reducing the cost of energy evaluation per configuration of atoms by many orders of magnitude4,5,6,7. These methods are based on the use of machine-learning force fields (MLFFs), which are parameterized to reproduce quantum-chemical relative energies for a large and diverse training set, for example, clusters taken from force-field simulations7,8,9,10,11,12 or directly from periodic electronic structure calculations13,14,15,16. The computational cost of the MLFF is two to three orders of magnitude more expensive per energy evaluation than a traditional pairwise additive molecular mechanics force field, such as optimized potentials for liquid simulations-4 (OPLS4)26; however, it is still many orders of magnitude less expensive than a purely quantum-chemical approach as embodied in AIMD.</p>
+<p>In an initial study of LIB electrolytes with a high-dimensional, charge-recursive neural network (QRNN) MLFF, molecular complexes containing multiple Li+ ions at short distances (as small as 3 Å) were observed without direct coordination with counterions9. In the present work, we report a detailed theoretical analysis of refined MLFF electrolyte model based on QRNN, coupled with comparison with solid-state nuclear magnetic resonance (ssNMR) spectroscopy. These results strongly support the computational discovery of multi-Li+ species exclusively coordinated by ethylene carbonate (EC) solvent molecules. We rigorously demonstrate the agreement of QRNN with high-level quantum-chemical calculations and with experimental condensed-phase, structural and electrochemical properties. Insights into the microsolvation structure of Li+ ions and their associated redox properties in the battery electrolyte system emerge from the QRNN molecular dynamics simulations (Fig. 1a).</p>
+<p>a, Illustrated workflow for developing the QRNN model, generating computational insights and corroborating them with experiment. b, Snapshot of a QRNN molecular dynamics trajectory. Outset are the constituent ions and molecules. c, RDF plots of Li+ cations with (left to right) other Li+ cations, EC solvent molecules, and PF6− anions calculated using QRNN and OPLS4 production molecular dynamics trajectories for 1 M LiPF6 in EC solvent. d, Statistics of extracted clusters from QRNN and OPLS4 trajectories: relative probabilities of clusters containing various numbers of Li+ across different concentrations of LiPF6.</p>
+<p>Significant Li+ ion clustering was observed in QRNN molecular dynamics simulations of lithium hexafluorophosphate (LiPF6) in EC at various concentrations. To quantify the liquid electrolyte structure of 1 M LiPF6 in EC, we computed the radial distribution functions (RDFs), g(r), where r is the pair distance, of Li+ with other Li+ ions (Li–Li), with the centre of mass of EC (Li–EC), and with the centre of mass of PF6− (Li–P). These plots are shown in Fig. 1c. The Li–Li RDF from the 1 M QRNN trajectory shows a sharp peak around 3 Å, representative of the presence of multi-Li+ clusters in electrolyte solution, which is not seen in the OPLS4 simulations (matching results in the literature for other versions of OPLS30). The Li–EC RDFs from the QRNN and OPLS trajectories are similar, representing first-shell binding of solvent to Li, but the Li–P RDFs diverge considerably, reflecting the separation of the Li+–PF6− ion pairs in the QRNN simulations as noted above.</p>
+<p>The statistics pertaining to the molecular complexation of Li+ in different concentrations of LiPF6 in EC, specifically the fractions of Li+ in different Lin clusters are shown in Fig. 1d. In the QRNN simulations, multi-Li+ complexes appear frequently with more than one Li cation in close proximity (<4.5 Å), increasing in frequency with concentration. This is in contrast to the OPLS4 simulations, in which the clusters overwhelmingly contain one Li+ ion (more than approximately 99%); a significant proportion of clusters in the QRNN simulations contain 2 or 3 Li+ ions (some contain 4 or 5 Li+ ions, although with lower frequency, except at 2 M concentration). At 1.2 M LiPF6, we see that 40% of the Li+ ions are present in multi-Li+ clusters during the QRNN trajectory. This translates to an average of 1.3 Li+ ions per Li+ complex in solution. Furthermore, the proportion of multi-Li+ complexation in EC appears to scale with concentration. At 2 M LiPF6, more than 68% of the Li+ ions are in multi-Li+ complexes whereas at 0.5 M LiPF6 that proportion is around 23%. The complexation statistics shown in terms of total cluster charge and categorized using the contact ion pair and aggregate nomenclature can be found in Supplementary Figs. 13 and 14. An aggregate is defined as a cluster containing more than two ions, with at least one Li+ and at least one PF6−.</p>
+<p>The above data clearly show that the solvation structure predicted in our recent QRNN molecular dynamics is radically different from that observed in other molecular dynamics simulations, which determines the observed battery properties. The following sections demonstrate the validity of the QRNN results via quantum-chemical calculations, macroscopic electrolyte property predictions, and comparison of experimental and theoretical NMR spectra.</p>
+<p>Below we describe three complementary approaches to the validation of our QRNN model for the LIB electrolyte. First, we assess the accuracy with which the MLFF reproduces accurate quantum-chemical calculations for Li–Li distance scans and for the energetics of structures extracted from the QRNN and OPLS4 simulations. These results are contrasted with a similar assessment for OPLS4. Second, QRNN simulations are benchmarked for a wide range of condensed-phase properties in comparison with OPLS4, a 2022 version of QRNN, and experimental data. It is emphasized that no experimental input was used in constructing the QRNN potential energy surface, making this a fully independent test set. Finally, we demonstrate that the structure of the electrolyte from QRNN yields a 13C NMR signal in strong agreement with accompanying experiments across three LiPF6 concentrations.</p>
+<p>First, we selected representative subsets of the Li-centred clusters from both QRNN and OPLS4 trajectories (necessary as the structures are radically different) for further validation against DFT. We calculated the gas-phase electronic energies of association for these subsets of complexes using QRNN, OPLS4 and DFT (ωB97X-D3BJ with def2-TZVPD basis set), the methodology on which the QRNN model was trained. As shown in Fig. 2b, the association energies calculated with QRNN agree within chemical accuracy (<1 kcal mol−1) with those from DFT for both QRNN- and OPLS4-predicted complexes, despite their very different structures. In contrast, the errors obtained using OPLS4 are 10–100-times larger, and OPLS4 does particularly poorly at calculating the energies of the multi-Li+ clusters. Validation of our DFT methodology to within a few kcal mol−1 against coupled cluster with singles, doubles and perturbative triples (CCSD(T)) and auxiliary-field quantum Monte Carlo (AFQMC) calculations is presented in Supplementary Information, section 2 and in ref. 31, respectively.</p>
+<p>a, Representative clusters obtained from QRNN simulations, ranging from one to three Li+ ions. Distances (Å) between Li+ ions are shown in blue. b, Parity plots of association energies (ΔUAssoc) for QRNN (left) and OPLS4 (right) trajectory configurations calculated using DFT (ωB97X-D3BJ/def2-TZVPD) and force-field methods (QRNN and OPLS4). QRNN is more accurate both for its own molecular dynamics geometries and for the OPLS molecular dynamics geometries, with less than 1 kcal mol–1 mean absolute error (MAE) for both sets. c, Left: error in predicted density for pure solvents frequently used in electrolyte solutions (lower is better)3,21,39. Solvents: ethylene carbonate (EC), propylene carbonate (PC), vinylene carbonate (VC), fluoroethylene carbonate (FEC), dimethyl carbonate (DMC), ethyl methyl carbonate (EMC), and diethyl carbonate (DEC). Right: error in predicted viscosity for LiPF6 salt dissolved in 3:7 mixed EC/DMC, with respect to the concentration of dissolved salt (lower is better)3,21,22,23,24. Our previous predictions were accurate only at concentrations at or below 1.0 mol kg−¹; now we have achieved accuracy up to the highest practical salt concentrations. d, Internal energy versus Li–Li distance scans for QRNN (dashed lines) versus DFT (solid lines). The jaggedness of the curves is a consequence of the unconstrained solvent molecules adopting different configurations at different Li–Li distances. The plot legend details the carbonate ligands accompanying the two Li+ ions in the clusters. e, Illustrations of the molecular clusters for which the Li–Li distance scans were performed.</p>
+<p>We also considered Li+–Li+ distance scans in the presence of solvent molecules. We created a test set of five such scans, three with pure EC and two with an EC/dimethyl carbonate (DMC) mixture, by randomly packing solvent molecules and ions. DMC was introduced to test whether minima would persist in the presence of a less polarizable linear carbonate. Each scan is relaxed first with OPLS then with QRNN, and finally evaluated with DFT at the ωB97X-D3BJ/def2-TZVPD level. The results are shown in Fig. 2d. A clear minimum-energy configuration emerges at a distance between 2.4 Å and 3.0 Å for each scan, which QRNN correctly reproduces. These minima, and the fact that QRNN correctly reproduces them, provide validation of the existence of low-energy Li+–Li+ complexation by solvent molecules.</p>
+<p>Finally, we carry out an AIMD simulation on a 1.2 M LiPF6 in EC system of nearly 500 atoms, to interrogate the stability of a di-lithium cluster in the context of fully ab initio solvation. The results show that the Li–Li distance remains in the minimum region over the duration of the simulation; details are given in Supplementary Information, section 7.</p>
+<p>As in our earlier work9, we can validate our model by simulating a number of standard condensed-phase properties and comparing with experiment. Figure 2c shows results for predicted densities of seven pure solvents and viscosity calculations as a function of LiPF6 concentration for a 3:7 EC/DMC mixture. Tabulated values can be found in Supplementary Tables 7 and 8. A marked improvement in accuracy and robustness compared with both the results of our previous work9 and those obtained from OPLS4 simulations is apparent. Our results are improved by the addition of more quantum-chemical data and better training methods in producing the QRNN model, and also by the use of a faster implementation of QRNN in the Desmond molecular dynamics engine32, which allows the use of larger simulation boxes and longer timescales. Details of the methodological improvements to both the simulation engine and QRNN development effort are given in Methods. In addition, we calculate densities, viscosities (Supplementary Information, section 10), diffusion coefficients (Supplementary Information, section 9.3) and overall fractions of Li-coordinated EC (Supplementary Information, section 11) for 0.5 M, 1.2 M and 2.0 M, compared with experimental values. Regarding transport properties, the ionic conductivities from QRNN simulations are in strong agreement at working temperatures with experimental values for 1 M LiPF6 in EC (Supplementary Fig. 3).</p>
+<p>Neat EC and electrolyte samples were flash-frozen to isolate and investigate microscopic structure with ssNMR as fast exchange in the liquid electrolyte prevents resolution of different solvation environments at temperature T = 313 K (Supplementary Information, sections A.9.2 and A.9.3). First, we used direct-polarization 7Li and 1H/19F → 7Li cross-polarization magic-angle spinning (CPMAS) ssNMR to assess Li–H and Li–F proximity. As shown in Fig. 3, direct-polarization 7Li ssNMR yields the highest 7Li signal intensity across all electrolyte compositions, consistent with detection of the full Li population. For all three samples, we see that the signal decreases when performing 1H → 7Li CPMAS, which is consistent with C=O interacting with Li+ and protons facing away, which leads to poor polarization (see Supplementary Information for cross-polarization efficiency calculations). Further signal attenuation is observed when we perform 19F → 7Li CPMAS, where 7Li NMR is visible only after increasing the signal intensity fivefold. Both contact ion pairs and aggregates have short Li–F distances and thus should exhibit strong 7Li–19F dipolar couplings that enhance 19F → 7Li CPMAS ssNMR. The absence of this spectroscopic signature provides compelling evidence that frozen samples contain predominantly solvent-separated species, consistent with single- and multi-Li clusters. (Supplementary Figs. 23 and 24 show efforts to assign discrete 6Li environments).</p>
+<p>a–c, Direct-polarization (DP) 7Li (dark colour line), 1H  → 7Li CPMAS (medium colour line) and 19F  → 7Li CPMAS (light colour line) ssNMR of 0.5 M (green; a), 1.2 M (red; b) and 2 M (purple; c) LiPF6 in EC. It is noted that in the top and middle spectra, the signal intensity of 19F  → 7Li CPMAS is increased by 5× to be seen. The top spectra show a comparison with the full peak heights, the middle spectra truncate the 7Li direct-polarization spectra to visualize the difference in intensity between 1H  → 7Li cross-polarization (CP) and 19F  → 7Li cross-polarization, and the bottom spectra show the signal-to-noise ratio when all experiments are normalized to one. d, Experimental 1H–13C CPMAS ssNMR (purple lines) for pure EC solvent, as well as 0.5 M, 1.2 M and 2 M LiPF6 in EC solvent, accompanied by NMR spectra simulated with QRNN (dotted green line) and OPLS4 (dotted orange line). Experimental data were acquired at an MAS frequency of 20 kHz, with 13C measurements performed at 14.1 T and 116 K and 7Li measurements performed at 9.32 T and 210 K, following flash-freezing to preserve the local solvation structures present in the EC-based electrolyte solutions. e, Decomposition of simulated NMR (QRNN) into structural components.</p>
+<p>To gain deeper insight into the local solvation environment around Li+, we performed 1H → 13C CPMAS ssNMR (Fig. 3d,e). In neat EC, the carbonyl carbon resonates at 157.6 ppm and the ether moiety at 68.0 ppm. After the addition of LiPF6, both peaks broaden and develop shoulders. Resolution between the parent peak and this new shoulder is more apparent for the carbonyl line, indicating that Li ions interact with the C=O group. These shoulders become more pronounced with increasing salt concentration (from 0.5 M to 1.2 M to 2.0 M), pointing to enhanced ionic aggregation, compositionally distinct solvation structures and reduced solvent availability per cation.</p>
+<p>Next, Li+-centred clusters were extracted from the QRNN trajectory, relaxed with QRNN and their NMR chemical shifts computed at the PBE/pcSseg-3 level to assign EC–Li+ coordination33,34,35. Figure 3d compares experimental and simulated spectra from the QRNN trajectory, and Fig. 3e shows contributions from different structural components that contribute to the peak shape (for example, free solvent, single-Li and multi-Li clusters). We see good agreement between experiment and QRNN for the spread in chemical shift of EC molecules in the Li clusters, as well as the gradual growth of a shoulder in the carbonyl region with increasing salt concentration.</p>
+<p>When using an identical protocol to calculate NMR spectra from OPLS4, we see that simulation can adequately predict spectra for samples that predominantly contain single Li+–EC structures (0.5 M), but deviate from experiment when multi-Li+ clusters are present, especially at carbon sites closest to Li+ (Fig. 3d). Owing to higher irregularity in Li+ coordination sites and the presence of PF6−-containing clusters, OPLS4 simulations fail to reproduce the line shape of the carbonyl peak of the Li+-centred clusters at 1.2 M and 2.0 M. At 2.0 M, the spectrum reflects a more heterogeneous and strongly perturbed local structure, leading to increased deviation and broadening compared with the free solvent, as opposed to a free-solvent-like environment, owing to the reduced ether-oxygen participation in direct Li+ binding. Further insights from simulated NMR spectra are provided in Supplementary Information, section 9.</p>
+<p>The reduction potentials of species in the LIB electrolyte are crucial to the composition and functionality of the resulting anode solid electrolyte interphase (SEI). We analysed a series of Li–EC complexes, many of which were highly statistically relevant in the electrolyte from QRNN molecular dynamics, as described above, to determine their reduction potentials versus the Li/Li+ redox couple via quantum-chemical calculations. Geometry optimized structures (representing the lowest-energy configurations of the oxidized and reduced species) in implicit solvent using the solvation model based on density (SMD)36, at the ωB97X-D3BJ/def2-TZVPD level of theory, are utilized to compute the relevant free energies. Voltages are referenced to Li/Li+ using a reference FeCp+/0 couple. Results for a series of species observed with significant frequency in the simulations are presented in Fig. 4. Further methodological details, benchmarks of the methods for computing referenced reduction potentials and reduction potentials of additional species are presented in Supplementary Information, section 12.</p>
+<p>One-electron reduction potentials of several frequently observed Li/EC coordination complexes versus Li/Li+ computed with ωB97X-D3BJ/def2-TZVPD. The dashed line at 0.8 V versus Li/Li+ indicates the voltage at which the SEI formation occurs for many common LIB anodes. Outset on the right are molecular illustrations of select reduced species (LiEC4, Li2EC6, Li3EC9) that include spin density isosurfaces (yellow) corresponding to the localization of the unpaired, excess electron on each complex. In each case, the excess electron is local to the carbonate moiety of one EC ligand. Atom colours: Li, green; C, grey; O, red; H, white. Li–O coordination interactions are depicted as dashed lines.</p>
+<p>From Fig. 4, it is evident that the most common Li1 complex, LiEC4, is reduced at a much lower voltage (less favourably) than the group of Li2EC4−7 complexes, the most statistically relevant of which is Li2EC7. Experimentally, SEI formation onset is observed at approximately 0.8 V versus Li/Li+ for EC-based electrolytes on both graphite and silicon anodes, according to impedance spectroscopy and electrochemical cycling measurements3,17,18,19,20. These data imply that single-Li clusters present in the electrolyte would not be spontaneously reduced at this voltage. In contrast, the redox potentials for Li2 clusters fall within 0.1 V of this value. In addition, the Li2 complexes appear to show even more favourable second one-electron reductions (Supplementary Table 13), adding the possibility that these complexes undergo spontaneous further reduction following the initial one-electron process around 0.8 V versus Li/Li+. Altogether, the more favourable one-electron reduction potentials for multi-Li+ complexes suggest that they participate in, if not govern, the initial anode SEI formation.</p>
+<p>Having established the presence of multi-Li+ clusters at typical salt concentrations used in LIBs (approximately 1 M), we now consider what role these clusters play in the operation of the cell. After polarization of the cell, we expect that positively charged species (such as those contained in the multi-Li+ clusters) are attracted to the negatively charged anode surface in the electrochemical double layer. These species are probably the reactants that reduce at 0.8 V, forming the first layer of the SEI, and are responsible for the products reported in literature (lithium ethylene dicarbonate, Li2CO3, lithium butylene dicarbonate, oligomers and so on). We also speculate that the multi-Li+ clusters are involved in the transport of Li ions from cathode to anode and the release of these ions at the electrode/electrolyte interface during battery charging.</p>
+<p>SEI formation is crucial to proper LIB functioning, and from the electrochemical calculations above, it is reasonable to hypothesize that the reductive decomposition reactions necessary to SEI formation proceed through the multi-Li+ cluster species. This deduction in turn provides an explanation as to why EC and related solvents are utilized in the LIB electrolyte. It is almost certainly the case that the high dielectric constant and polarizability of EC (unusual in an aprotic solvent) have major roles in stabilizing the co-complexation of multiple Li+ ions. In essence the EC molecules coordinated to the Li+ ions of the cluster provide a potent microsolvation, enabling close approach of the positive ions, which would be impossible in the gas phase or in a normal organic solvent. The bridging location of the EC carbonyl oxygen is probably crucial. Further analysis of the decomposition of the multi-Li clusters in the presence of the electrode via QRNN simulation offers the promise of achieving a detailed atomic-level picture of the formation of the SEI and its dependence on electrolyte composition. This capability in turn opens the door to using large-scale graphics-processing-unit-based simulation to carry out electrolyte engineering, thus enabling the design of more efficient and cost-effective LIBs and, in principle, batteries made from other constituents as well.</p>
+<p>The above analyses of the LiPF6 in EC electrolyte represent a substantial step forward in understanding LIB functionality at an atomic level of detail, providing surprising and previously unknown insights into the microscopic structure of the electrolyte. In future work, we intend to use the QRNN simulation platform to study a wide range of electrolyte solvents, salts and additives, comparing with experimental data when available. We will furthermore add electrode models, a description of reactive chemistry and a treatment of the electrode applied voltage, enabling a high degree of realism in the investigation of the early stages of SEI formation to be attained.</p>
+<p>In addition to specific implications for understanding the structure and function of EC-based LIB electrolytes, the present work provides proof of concept that quite complex and even surprising phenomena can be accurately modelled via a properly parameterized MLFF without any explicit experimental input. Previous work on water has shown similar capabilities37,38, but the LIB electrolyte system is far more complex in composition and in the forming of unusual covalently bonded species as opposed to the standard non-bonded interactions (van der Waals and electrostatic) that dominate liquid water. The results of this paper suggest that a wide range of important chemical systems, composed of elements from across the full range of the periodic table, can now be effectively addressed via computationally accessible dynamical molecular simulations.</p>
+<p>Our simulations were performed at 313 K in the canonical (NVT) ensemble (in which the number of particles (N), volume (V) and temperature (T) are kept constant), above room temperature because pure EC is a solid at room temperature. For QRNN, the systems were equilibrated for 1 ns in an isothermal–isobaric (NPT) ensemble (in which the number of particles (N), pressure (P) and temperature (T) are kept constant) before 5 ns of production, whereas for the OPLS4 molecular dynamics, we performed an equilibration in NPT for 10 ns followed by 50 ns of production dynamics in NVT. The Li-based molecular clusters were extracted from molecular dynamics frames using a 4.5-Å radius around Li, including molecules with any atoms within this radius.</p>
+<p>We carried out molecular dynamics simulations of 1 M LiPF6 solution in EC solvent using both a machine-learned force field (QRNN) and an empirical force field (OPLS4). We ran NVT trajectories at 313 K for 5 ns using the refined QRNN force field and 50 ns using the OPLS4 force field. Molecular complexes were extracted from these trajectories at evenly spaced time steps based on the immediate coordination environment of the Li ions in each simulation. The equilibrium dynamics of the same electrolyte yielded vastly different molecular structures depending on the force field used leading to previously unforeseen compositions of Li complexes.</p>
+<p>A batch of replicas is launched from the command line onto Google Cloud resources by specifying the desired system composition. Each replica is automatically assigned a unique random seed, which is used to construct an initial simulation cell of approximately 6,000 atoms using a Monte Carlo packing algorithm implemented in Schrödinger’s Disordered System Builder32. This ensures that each replica has an independent starting point for maximum sampling efficiency. The replicas proceed automatically to an equilibration stage consisting of 1 ns (2 million steps) of NPT molecular dynamics with our Desmond QRNN molecular dynamics engine32.</p>
+<p>After equilibration, instead of simply using the final simulation frame for the following steps, our scripts automatically select the trajectory frame with a volume closest to the mean volume over the final 30% of each trajectory. This ensures that the density used for the following step is as close to the true mean density of the model system as possible. After equilibration, the replicas proceed to 5 ns (10 million steps) of NVT molecular dynamics for property calculation.</p>
+<p>As in our previous MLFF papers5,6,9,10,11, our model was trained using a fork of the torchANI library40,41, with data labelled at the ωB97X-D3BJ/def2-TZVPD level of theory31,42,43 using Psi4 (ref. 44) with the same settings as in ref. 10:</p>
+<p>'scf_type': 'MEM_DF', 'dft_basis_tolerance': 1 × 10−10</p>
+<p>'ints_tolerance': 1e-10, 'maxiter': 200, 'dft_pruning_scheme': 'robust'</p>
+<p>'s_orthogonalization': 'partialcholesky', 's_cholesky_tolerance': 1 × 10−6</p>
+<p>Our previous data from ref. 9 were checked using these settings, and inconsistent self-consistent-field solutions were removed. As in ref. 9, we trained the charge model using DFT dipole moments, rather than xTB atomic partial charges45. Small-scale geometry optimization and molecular dynamics for data sampling were performed using the Atomic Simulation Environment library46 via the Schrödinger Suite32.</p>
+<p>All samples, including 0.5 M, 1.2 M and 2.0 M LiPF6 in EC, as well as pure EC solvent, were prepared and packed into 2.5-mm Phoenix zirconia rotors entirely inside an argon-filled glovebox to maintain an inert environment and prevent exposure to air and moisture. Samples were flash-frozen before insertion into the probe to preserve their room-temperature structure during low-temperature measurements.</p>
+<p>13C ssNMR experiments were performed on a Bruker Ascend 600-MHz wide-bore compact magnet equipped with a 2.5-mm HFXY LT-DNP Phoenix probe, tuned to 1H13C mode. The MAS rate was maintained at 20 kHz, and the sample temperature during measurements was estimated to be approximately 116 K. The 90° pulse powers were 172 kHz at 60 W for 1H and 75 kHz at 60 W for 13C. One-dimensional 13C spectra were recorded using a standard 1H–13C cross-polarization experiment with a cross-polarization contact time of 3 ms and recycle delay of 300 s. Adamantane was used as an external chemical-shift reference for 13C. The chemical shift of the CH2 peak (37.75 ppm) was adjusted for 116 K using the temperature correction formula reported in ref. 47. Bulk 1H T1 relaxation times were measured using a saturation recovery experiment with cross-polarization detection on 13C. T1 values were determined to be 6.3 s for the 2.0 M LiPF6 samples and 42.2 s for the 1.2 M LiPF6 samples. For the 0.5 M LiPF6 and pure EC samples, 1H T1 could not be accurately determined as the signal did not saturate even after a 500-s delay.</p>
+<p>The differences in 1H T1 between the samples may impact the relative intensities of the free solvent peaks and the solvent–ion coordination peaks in 1H–13C CPMAS ssNMR. For example, we see a broad shoulder appear in 13C ssNMR after the addition of 0.5 M LiPF6 to EC, indicating that Li ions coordinate to the solvent. In principle, the integrated area of this peak indicates the total amount of solvent coordinated to Li. However, the intensity of this shoulder changes very little after the salt concentration is increased to 1.2 M LiPF6, where we expect to have additional salt–solvent interactions, probably due to differences in 1H T1 and cross-polarization transfer efficiency. Direct polarization 7Li and 1H → 7Li and 19F → 7Li cross-polarization MAS ssNMR measurements were performed on a Bruker Avance NEO 400-MHz wide-bore spectrometer equipped with a 2.5-mm HFXY LT-DNP Phoenix probe tuned to 1H/19F/7Li mode. LiPF6 electrolyte samples in EC at 0.5 M, 1.2 M and 2.0 M were prepared alongside an additional sample of 1.2 M LiPF6 in EC/propylene carbonate (80:20 w/w). The MAS rate was maintained at 20 kHz and the sample temperature during measurements was approximately 210 K. The 90° pulse radio-frequency field strengths were 100 kHz (116 W) for 1H, 75 kHz (95 W) for 19F, and 125 kHz (80 W) for 7Li. One-dimensional 7Li spectra were acquired using a single-pulse direct polarization experiment with a recycle delay of 300 s. 1H–7Li cross-polarization experiments were performed with a contact time of 3 ms and a recycle delay of 10 s, and 19F–7Li cross-polarization experiments were performed with a contact time of 2 ms and a recycle delay of 3 s. LiF was used as an external chemical-shift reference for both 7Li and 19F and set to −1 ppm and −204 ppm, respectively. 7Li longitudinal relaxation times T1 were measured using a saturation recovery pulse sequence and were found to be 10 s for 0.5 M, 19 s for 1.2 M, and 43 s for 2 M electrolytes (Supplementary Fig. 25). For the 6Li ssNMR experiments, the same samples described above were used. Experiments were performed on a Bruker Avance NEO 900-MHz spectrometer equipped with a 2.5-mm Black Fox HXY probe tuned to 1H6Li mode. The MAS rate was maintained at 20 kHz and the sample temperature was set to 210 K, which was limited by the probehead available at high field that also supports 6Li tuning. The 90° pulse radio-frequency field strengths were 64 kHz (150 W) for 1H and 50 kHz (150 W) for 6Li. One-dimensional 6Li spectra were acquired using a single-pulse direct polarization experiment with a recycle delay of 300 s. 1H–6Li cross-polarization experiments were performed with a contact time of 8 ms and a recycle delay of 5 s. Two-dimensional 6Li–6Li radio-frequency-driven recoupling experiments were performed at 10-kHz MAS with a mixing time of 5 ms and a recycle delay of 5 s. The temperature readouts on the 2.5-mm PhoenixNMR LTMAS DNP probeheads operating at both 600 MHz and 400 MHz were calibrated using the T1 of KBr following the procedure reported in ref. 48. The temperature readout on the 2.5-mm Black Fox NMR probehead operating at 900 MHz was calibrated by monitoring the 1H chemical shift from the H6 resonance of the high-field NMR thermometer, thulium 1,4,7,10-tetra-azacyclododecane-1,4,7,10-tetrakis (methylene phosphonate) (TmDOTP-5, often denoted TmDOTP), as a function of temperature under MAS conditions, following the procedure reported in ref. 49.</p>
+<p>Solution NMR samples were prepared in an argon-filled glovebox by heating samples to 40 °C before filling a 3.65-mm-outer-diameter fluorinated ethylene propylene tube with 300 μl of sample. This tube was snugly placed into a 5-mm-outer-diameter glass J-young tube containing roughly 100 μl of DMSO-d6 used for locking.</p>
+<p>1H, 7Li, 17O and 19F NMR spectra were collected on a Bruker Avance III 400-MHz spectrometer using a triple resonance broadband observe probehead. Samples were kept at 40 °C inside the NMR probe using a calibrated variable temperature unit. For 90° pulse spectra, 1H experiments used 32 scans with a recycle delay of 1 s and were referenced to tetramethylsilane at 0 ppm. 7Li experiments used 32 scans with a recycle delay of 5 × T1 as determined through an inversion recovery experiment and were referenced to LiCl at 0 ppm. 17O experiments used 8,192 scans with a recycle delay of 0.01 s and were referenced to water at 0 ppm, and 19F experiments used 32 scans with a recycle delay of 1 s and were internally referenced to the PF6− doublet at −73 ppm.</p>
+<p>For all pulse-field-gradient experiments, 16 linearly spaced gradient values between 2% and 98% were measured over 4 scans with recycle delays of 10 s, 15 s and 5 × T1 for 1H, 19F and 7Li respectively.</p>
+<p>Viscosity was determined using a Cannon–Fenske Routine size 75 viscometer (0.008 centistokes per second constant) to measure kinematic viscosity. The viscometer was thoroughly washed and dried in a 60 °C oven overnight and then transferred to an argon-filled glovebox, where the measurements were taken. The viscometer was charged with liquid electrolyte and then placed in a 313-K oil bath for at least 15 min before kinematic viscosity measurements. Efflux time measurements were repeated at least three times for each liquid sample.</p>
+<p>To measure density, liquid samples were brought to 313 K using an oil bath. Five millilitres of each sample was massed at least five times to determine the density. Viscosity was calculated as the product of measured kinematic viscosity and density and used to calculate diffusivity from the pulse-field-gradient experiments.</p>
+<p>Raman spectra were collected for LiPF6 dissolved in EC at concentrations of 0.5 M, 1.2 M and 2.0 M. Electrolyte solutions were heated to 313 K to ensure complete dissolution before transfer into glass capillary tubes in an argon-filled glovebox. The capillaries were flame-sealed at one end and sealed at the other using a malleable sealing compound to prevent air and moisture exposure. The filled capillaries were then mounted on the stage of a Renishaw inVia Raman spectrometer and aligned under the microscope objective. Spectra were acquired at ambient temperatures using a 633-nm excitation laser with an 1,800 l mm−1 grating over a spectral window of 440–1,000 cm−1, with an acquisition time of 3 s and 30 accumulations per spectrum at 100% laser power. The instrument was calibrated before measurement using a silicon reference standard (520 cm−1 peak).</p>
+<p>To assign EC–Li+ coordination structures detected in 13C ssNMR, NMR calculations were carried out by extracting all Li+-centred clusters (here called coordinated Li or Li+-centred clusters) from the QRNN trajectory, followed by relaxing the cluster geometries with QRNN and computing NMR chemical shifts using PBE/pcSseg-3 (refs. 33,34,35). For all salt concentrations (0.5 M, 1.2 M and 2.0 M), the predicted NMR spectrum, excluding the free-solvent contribution, was obtained by summing individual simulated spectra for all Li+-centred clusters in the molecular dynamics simulation box50. The free-solvent contribution was modelled as a single Gaussian line shape. The linewidths of the individual Li+-centred cluster peak, and that of the free-solvent peak, are fit to reproduce the experimental data.</p>
+<p>To compare the full simulated NMR line shapes with experiment, it is necessary to place the free-solvent peak relative to the Li+-centred cluster peak. For the 0.5 M and 1.2 M concentrations, for both the carbonyl and ether peaks, the relative free-solvent–Li+-centred cluster peak separation is directly obtained from the experimental spectra. For the 2.0 M system, we do not average absolute chemical shifts; instead, we approximate the free-solvent–Li+-centred cluster peak separation by averaging the corresponding values from the 0.5 M and 1.2 M systems, which are very similar. This approximation is motivated by the fact that the free-solvent peak is less well defined at 2.0 M and that a first-principles determination of its position is not feasible, owing to the lack of a well-characterized structural model for the free-solvent region at low temperature. The approach implicitly assumes that the free-solvent–Li+-centred cluster peak separation varies weakly with concentration and that the dominant local environments contributing to the free-solvent region are not markedly altered between 1.2 M and 2.0 M. On the basis of the small variation between the 0.5 M and 1.2 M values, we estimate an uncertainty of approximately the same order in the free-solvent–Li+-centred cluster separation at 2.0 M. Importantly, the simulated line shapes and resulting spectral assignments are not sensitive to this uncertainty. As further support, in Supplementary Information, section 9.7, we present a physically motivated model for the free-solvent region that yields calculated spectra very similar to those obtained using the empirically derived free-solvent–Li+-centred cluster separation. Details of the simulations are discussed further in Supplementary Information, section 9.</p>
+<p>Comparisons between the experimental and simulated spectra from the QRNN trajectory are shown in Fig. 3d; contributions from different structural components that comprise peak shape, such as free-solvent EC, single-Li and multi-Li clusters in the QRNN NMR simulation are shown in Fig. 3e. The spread in chemical shift of EC molecules in the Li clusters, as well as the gradual growth of the shoulder of the carbonyl peak with increasing salt concentration, show good agreement with experiments with the QRNN spectra. Moreover, using the average gap obtained from the 0.5 M and 1.2 M concentrations yields great agreement of the QRNN spectra with experiment across carbonyl and ether peaks for the 2 M concentration.</p>
+<p>All the NMR calculations have been performed using ORCA 6.0 (ref. 51). The NMR chemical shielding values are calculated using PBE/pcSseg-3 (refs. 33,34). The isotropic chemical shifts obtained are used to simulate the spectra of different cluster compositions.</p>
+<p>Two distinct types of species are identified in the molecular dynamics trajectories, namely, coordinated Li clusters and free-solvent molecules. We follow the following steps to simulate the NMR spectra at different salt concentrations using the QRNN or OPLS4 trajectories.</p>
+<p>(1) Coordinated Li clusters are extracted from the molecular dynamics trajectories. For the purpose of NMR calculations, the effect of PF6− ions, even when they are not directly part of the Li+ complexation environment but are present nearby, are considered. To achieve this, when applicable, one PF6− unit is included beyond the regular cluster when a distance cut-off is satisfied. When there are multiple qualifying PF6− ions, the one closest to the original cluster is included. NMR spectra are computed for each cluster by summing Lorentzian line-shape contributions arising from the isotropic chemical shifts of all carbon atoms within the clusters.</p>
+<p>(2) The net contribution of all the coordinated Li clusters in the molecular dynamics trajectory is obtained by summing the spectra of each individual Li cluster.</p>
+<p>(3) The number of EC molecules within coordinated Li clusters is counted along with the number of free-solvent EC molecules in the molecular dynamics trajectory.</p>
+<p>(4) For the 0.5 M and 1.2 M salt concentrations, the experimental spectra is fitted by a Voigt profile each for the solvent peak and the coordinated Li peak52. The relative chemical shift between the two peaks is extracted.</p>
+<p>(5) The gap between the peaks is used to calculate the position of the free-solvent peak with respect to the coordinated Li peak, calculated earlier, which is modelled by a single Gaussian line shape.</p>
+<p>(6) The width of the free-solvent peak, as well as the individual Lorentzian line shape, is tuned to fit the experimental NMR spectra for different peaks at different concentrations.</p>
+<p>(7) The reference is chosen so that the free solvent peak is aligned with the experimental solvent peak. For each concentration, the reference for carbonyl and ether peak is chosen individually53.</p>
+<p>(8) The sum of the coordinated Li peak and the free-solvent peak produces the final simulated spectra, to be compared with the experimental NMR spectra. The coordinated Li and free-solvent components in each simulated spectrum are intensity normalized weighted by the fraction of EC molecules in Li clusters relative to those in the free solvent in the molecular dynamics simulation box.</p>
+<p>(9) For the 2 M concentration, instead of calculating the gap between the coordinated Li and the free-solvent peak from the experimental spectra, we use the average obtained from 0.5 M and 1.2 M and use the same gap relative to the coordinated Li peak, accounting for the relative positions of the coordinated Li peaks for 2 M concentration with respect to 1.2 M concentration.</p>
+<p>To compute the reduction potentials of Li–electrolyte complexes on the LIB-relevant reference scale versus Li/Li+, we utilized experimental data and computed potentials for the ferrocenium/ferrocene redox couple (denoted hereafter as FeCp+/0) in LIB-relevant electrolytic conditions. We note that this approach is a departure from a considerable body of computational literature in which a constant, vacuum-based reference of 1.4 V is applied to the computed redox potentials54,55,56,57. Our approach is, however, consistent with emerging best practices of experimental electrochemistry, in which using FeCp+/0 is recommended given its versatile solubility and electrochemical reversibility in many different solvents and electrolytes57,58. Given the challenging nature of the transition-metal redox chemistry of FeCp+/0, we furthermore impose a correction for the error in the gas-phase adiabatic ionization potential of each electronic structure method used59.</p>
+<p>Thus, the reduction potentials of Li–electrolyte coordination complexes referenced to Li/Li+, Ered, are computed as follows:</p>
+<p>where Eref(FeCp+/0) is the experimental reduction potential of FeCp+/0 relative to Li/Li+ in the electrolytic conditions of interest, Ecalc(FeCp+/0) is the calculated, unreferenced reduction potential of FeCp+/0, E is the computed reduction potential of the Li-based complex, \({\mathcal{F}}\) is Faraday's constant, n is the number of moles of electrons transferred, and δ is the error in the gas-phase adiabatic ionization potential of the electronic structure method. Eref(FeCp+/0) in the present work is taken to be 3.25 V versus Li/Li+ based on cyclic voltammetry of FeCp+/0 in 1 M LiPF6 in 1:1 EC/EMC60. In this expression, Ecalc(FeCp+/0) and E are computed as the solution-phase free-energy differences between the reduced and oxidized species. As a consequence of the electrolyte conditions of the reference couple, we use ϵ = 33.6 for implicit solvation of all species in reduction potential calculations when using both conductor-like continuum polarization model (C-PCM) and SMD solvation schemes61. The additional parameters for the SMD scheme are taken as those previously determined for pure EC62. The values of δ for ωB97X and DLPNO-CCSD(T) are taken from previous benchmarking calculations59 and are −4.30 kcal mol−1 and +3.06 kcal mol−1, respectively. The reaction free energies associated with each reduction reaction, ΔG°, were computed as the sum of the reaction free energies in gas phase, ΔG°, and the differences in SMD solvation energies between the reduced and oxidized states, ΔΔE(sol). Zero-point energy and entropic contributions to the free energies were obtained by a harmonic frequency calculation of each species at its gas-phase optimized geometry.</p>
+<p>The total shift on the computed reduction potentials, Eref(FeCp+/0) + Ecalc(FeCp+/0) + δ, corresponding to the Li/Li+ scale are 1.36 V and 1.43 V for DLPNO-CCSD(T)/aug-cc-pVTZ and ωB97X-D3BJ/def2-TZVPD, respectively, using SMD for solvation. Although these values are close to the frequently used 1.4 V, they reflect sensitivities to the errors in the underlying methods and moreover could be consistently adopted for any electrolytic conditions as long as the accompanying experimental voltammetry for FeCp+/0 versus Li/Li+ has been measured. The reduction potentials in the main text were computed using ORCA 6.051 and the ωB97X-D3BJ/def2-TZVPD level of theory42,43.</p>
+<p>The spin density isosurfaces in Fig. 4 demonstrate that the excess electron associated with reduction is localized on the carbonate moiety of an EC ligand, consistent with previous DFT studies of reduced Li1/EC complexes63. In the reduced multi-Li+ complexes, EC ligands that coordinate two or more Li+ centres are the electron acceptors, which can help explain the more facile reduction of multi-Li+ species. The stabilization of the radical EC− moiety by multiple coordinating Li+ cations probably contributes to a more stable reduced complex.</p>
+<p>The data that support the findings of this study are available at https://github.com/columbia-energy-center/Multi-Li-Cluster-Paper-Data.</p>
+<p>The MLFF model used to perform molecular dynamics in this work is available in the 25-3 release of Schrödinger Suite under the name QRNN_Electrolyte for molecular dynamics with periodic boundary conditions using Desmond.</p>
+<p>Goodenough, J. B. & Kim, Y. Challenges for rechargeable Li batteries. Chem. Mater. 22, 587–603 (2010).</p>
+<p>Article 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Xu, K. Electrolytes and interphases in Li-ion batteries and beyond. Chem. Rev. 114, 11503–11618 (2014).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Xu, K. Nonaqueous liquid electrolytes for lithium-based rechargeable batteries. Chem. Rev. 104, 4303–4418 (2004).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Unke, O. T. et al. Machine learning force fields. Chem. Rev. 121, 10142–10186 (2021).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    PubMed Central 
+    
+                    Google Scholar</p>
+<p>Stevenson, J. M. et al. Schrödinger-ANI: an eight-element neural network interaction potential with greatly expanded coverage of druglike chemical space. Preprint at https://doi.org/10.48550/arxiv.1912.05079 (2019).</p>
+<p>Jacobson, L. D. et al. Transferable neural network potential energy surfaces for closed-shell organic molecules: extension to ions. J. Chem. Theory Comput. 18, 2354–2366 (2022).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Gong, S. et al. A predictive machine learning force-field framework for liquid electrolyte development. Nat. Mach. Intell. 7, 543–552 (2025).</p>
+<p>Xie, X., Persson, K. A. & Small, D. W. Incorporating electronic information into machine learning potential energy surfaces via approaching the ground-state electronic energy as a function of atom-based electronic populations. J. Chem. Theory Comput. 16, 4256–4270 (2020).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Dajnowicz, S. et al. High-dimensional neural network potential for liquid electrolyte simulations. J. Phys. Chem. B 126, 6271–6280 (2022).</p>
+<p>Stevenson, J. M., Jacobson, L. D., Agarwal, G. & Dajnowicz, S. Transfer learning lithium and electrolyte potential energy surfaces from pure and hybrid DFT. In AI for Accelerated Materials Design NeurIPS 2022 Workshop (2022).</p>
+<p>Stevenson, J. M., Jacobson, L. D. & Agarwal, G. Machine learning force field ranking of candidate solid electrolyte interphase structures in li-ion batteries. In AI for Accelerated Materials Design NeurIPS 2022 Workshop (2023).</p>
+<p>Zeng, B. et al. Uni-ELF: A multi-level representation learning framework for electrolyte formulation design. Preprint at https://doi.org/10.48550/arxiv.2407.06152 (2024).</p>
+<p>Behler, J. & Parrinello, M. Generalized neural-network representation of high-dimensional potential-energy surfaces. Phys. Rev. Lett. 98, 146401 (2007).</p>
+<p>Article 
+    PubMed 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Artrith, N., Morawietz, T. & Behler, J. High-dimensional neural-network potentials for multicomponent systems: applications to zinc oxide. Phys. Rev. B 83, 153101 (2011).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Zhang, L. et al. A deep potential model with long-range electrostatic interactions. J. Chem. Phys. 156, 124107 (2022).</p>
+<p>Magdău, I.-B. et al. Machine learning force fields for molecular liquids: ethylene carbonate/ethyl methyl carbonate binary solvent. npj Comput. Mater. 9, 146 (2023).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Xu, C. et al. Improved performance of the silicon anode for li-ion batteries: understanding the surface modification mechanism of fluoroethylene carbonate as an effective electrolyte additive. Chem. Mater. 27, 2591–2599 (2015).</p>
+<p>Article 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Michan, A. L., Leskes, M. & Grey, C. P. Voltage dependent solid electrolyte interphase formation in silicon electrodes: monitoring the formation of organic decomposition products. Chem. Mater. 28, 385–398 (2016).</p>
+<p>Article 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Jin, Y. et al. Identifying the structural basis for the increased stability of the solid electrolyte interphase formed on silicon with the additive fluoroethylene carbonate. J. Am. Chem. Soc. 139, 14992–15004 (2017).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Jin, Y. et al. Understanding fluoroethylene carbonate and vinylene carbonate based electrolytes for Si anodes in lithium ion batteries with NMR spectroscopy. J. Am. Chem. Soc. 140, 9854–9867 (2018).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Väli, R., Jänes, A. & Lust, E. Vinylene carbonate as co-solvent for low-temperature mixed electrolyte based supercapacitors. J. Electrochem. Soc. 163, A851 (2016).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Flick, E. W. Industrial Solvents Handbook 5th edn (William Andrew Publishing, 1998).</p>
+<p>Logan, E. R. et al. A study of the physical properties of Li-ion battery electrolytes containing esters. J. Electrochem. Soc. 165, A21 (2018).</p>
+<p>Article 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Jänes, A., Thomberg, T., Eskusson, J. & Lust, E. Fluoroethylene carbonate and propylene carbonate mixtures based electrolytes for supercapacitors. ECS Trans. 58, 71 (2014).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Wang, L. et al. Accurate and reliable prediction of relative ligand binding potency in prospective drug discovery by way of a modern free-energy calculation protocol and force field. J. Am. Chem. Soc. 137, 2695–2703 (2015).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Lu, C. et al. OPLS4: improving force field accuracy on challenging regimes of chemical space. J. Chem. Theory Comput. 17, 4291–4300 (2021).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Damm, W. et al. OPLS5: addition of polarizability and improved treatment of metals. Preprint at https://doi.org/10.26434/chemrxiv-2024-2svr (2024).</p>
+<p>Leung, K. & Budzien, J. L. Ab initio molecular dynamics simulations of the initial stages of solid–electrolyte interphase formation on lithium ion battery graphitic anodes. Phys. Chem. Chem. Phys. 12, 6583–6586 (2010).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Soto, F. A., Marzouk, A., El-Mellouhi, F. & Balbuena, P. B. Understanding ionic diffusion through SEI components for lithium-ion and sodium-ion batteries: insights from first-principles calculations. Chem. Mater. 30, 3315–3322 (2018).</p>
+<p>Article 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Hasan, R. & Datta, D. Computational study of Li+ solvation structures in fluorinated ether, non-fluorinated ether, and organic carbonate-based electrolytes at low and high salt concentrations. Energy Adv. 4, 1049–1066 (2025).</p>
+<p>Article 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Debnath, S. et al. Accurate quantum chemical reaction energies for lithium-mediated electrolyte decomposition and evaluation of density functional approximations. J. Phys. Chem. A 127, 9178–9184 (2023).</p>
+<p>Schrödinger. Schrödinger Release 2025-3: Materials Science Suite. Schrödinger https://www.schrodinger.com/platform/materials-science (2025).</p>
+<p>Perdew, J. P., Burke, K. & Ernzerhof, M. Generalized gradient approximation made simple. Phys. Rev. Lett. 77, 3865–3868 (1996).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Jensen, F. Segmented contracted basis sets optimized for nuclear magnetic shielding. J. Chem. Theory Comput. 11, 132–138 (2015).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Liang, J. et al. Efficient calculation of nmr shielding constants using composite method approximations and locally dense basis sets. J. Chem. Theory Comput. 19, 514–523 (2023).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    PubMed Central 
+    
+                    Google Scholar</p>
+<p>Marenich, A. V., Cramer, C. J. & Truhlar, D. G. Universal solvation model based on solute electron density and on a continuum model of the solvent defined by the bulk dielectric constant and atomic surface tensions. J. Phys. Chem. B 113, 6378–6396 (2009).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Bore, S. L. & Paesani, F. Realistic phase diagram of water from ‘first principles’ data-driven quantum simulations. Nat. Commun. 14, 3349 (2023).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    PubMed Central 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Chen, M. S. et al. Data-efficient machine learning potentials from transfer learning of periodic correlated electronic structure methods: liquid water at AFQMC, CCSD, and CCSD(T) accuracy. J. Chem. Theory Comput. 19, 4510–4519 (2023).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Sasaki, Y. Physical and electrochemical properties and application to lithium batteries of fluorinated organic solvents. In Fluorinated Materials for Energy Conversion (eds Nakajima, T. & Groult, H.) 285–304 (Elsevier, 2005).</p>
+<p>Gao, X., Ramezanghorbani, F., Isayev, O., Smith, J. S. & Roitberg, A. E. TorchANI: a free and open source PyTorch-based deep learning implementation of the ANI neural network potentials. J. Chem. Inf. Model. 60, 3408–3415 (2020).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Ramezanghorbani, F. Developing Machine Learning Models to Enhance Applicability of Neural Network Potentials in Drug Discovery. PhD thesis, Univ. Florida (2020).</p>
+<p>Chai, J.-D. & Head-Gordon, M. Long-range corrected hybrid density functionals with damped atom–atom dispersion corrections. Phys. Chem. Chem. Phys. 10, 6615–6620 (2008).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Goerigk, L. et al. A look at the density functional theory zoo with the advanced GMTKN55 database forgeneral main group thermochemistry, kinetics and noncovalent interactions. Phys. Chem. Chem. Phys. 19, 32184–32215 (2017).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Turney, J. M. et al. Psi4: an open-source ab initio electronic structure program. Wiley Interdiscip. Rev. Comput. Mol. Sci. 2, 556–565 (2012).</p>
+<p>Article 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Bannwarth, C., Ehlert, S. & Grimme, S. GFN2-xTB—an accurate and broadly parametrized self-consistent tight-binding quantum chemical method with multipole electrostatics and density-dependent dispersion contributions. J. Chem. Theory Comput. 15, 1652–1671 (2019).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Larsen, A. H. et al. The atomic simulation environment—a Python library for working with atoms. J. Phys. Condensed Matter 29, 273002 (2017).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Hoffman, R. Solid-state chemical-shift referencing with adamantane. J. Magn. Reson. 340, 107231 (2022).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Thurber, K. R. & Tycko, R. Measurement of sample temperatures under magic-angle spinning from the chemical shift and spin-lattice relaxation rate of 79Br in KBr powder. J. Magn. Reson. 196, 84–87 (2009).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Zhang, D., Itin, B. & McDermott, A. E. TmDOTP: an NMR-based thermometer for magic angle spinning nmr experiments. J. Magn. Reson. 308, 106574 (2019).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    PubMed Central 
+    
+                    Google Scholar</p>
+<p>Atwi, R. et al. An automated framework for high-throughput predictions of NMR chemical shifts within liquid solutions. Nat. Comput. Sci. 2, 112–122 (2022).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Neese, F. Software update: The orca program system—version 6.0. Wiley Interdiscip. Rev. Comput. Mol. Sci. 15, e70019 (2025).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Higinbotham, J. & Marshall, I. NMR lineshapes and lineshape fitting procedures. Annu. Rep. NMR Spectrosc. 43, 59–120 (2001).</p>
+<p>Sarotti, A. M. & Pellegrinet, S. C. A multi-standard approach for GIAO 13C NMR calculations. J. Org. Chem. 74, 7254–7260 (2009).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    
+                    Google Scholar</p>
+<p>Borodin, O., Behl, W. & Jow, T. R. Oxidative stability and initial decomposition reactions of carbonate, sulfone, and alkyl phosphate-based electrolytes. J. Phys. Chem. C 117, 8661–8682 (2013).</p>
+<p>Article 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Borodin, O. Molecular modeling of electrolytes. In Electrolytes for Lithium and Lithium-ion Batteries (eds. Jow, T. R. et al) 371–401 (Springer, 2014).</p>
+<p>Delp, S. A. et al. Importance of reduction and oxidation stability of high voltage electrolytes and additives. Electrochim. Acta 209, 498–510 (2016).</p>
+<p>Article 
+    CAS 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Gibson, L. D., Pfaendtner, J. & Mundy, C. J. Probing the thermodynamics and kinetics of ethylene carbonate reduction at the electrode–electrolyte interface with molecular simulations. J. Chem. Phys. 155, 204703 (2021).</p>
+<p>Appel, A. M. & Helm, M. L. Determining the overpotential for a molecular electrocatalyst. ACS Catal. 4, 630–633 (2014).</p>
+<p>Article 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Rudshteyn, B. et al. Calculation of metallocene ionization potentials via auxiliary field quantum Monte Carlo: toward benchmark quantum chemistry for transition metals. J. Chem. Theory Comput. 18, 2845–2862 (2022).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    PubMed Central 
+    
+                    Google Scholar</p>
+<p>Laoire, C. O., Plichta, E., Hendrickson, M., Mukerjee, S. & Abraham, K. M. Electrochemical studies of ferrocene in a lithium ion conducting organic carbonate electrolyte. Electrochim. Acta 54, 6560–6564 (2009).</p>
+<p>Article 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Hall, D. S., Self, J. & Dahn, J. R. Dielectric constants for quantum chemistry and Li-ion batteries: solvent blends of ethylene carbonate and ethyl methyl carbonate. J. Phys. Chem. C 119, 22322–22330 (2015).</p>
+<p>Article 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Spotte-Smith, E. W. C. et al. Quantum chemical calculations of lithium-ion battery electrolyte and interphase species. Sci. Data 8, 203 (2021).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    PubMed Central 
+    
+                    Google Scholar</p>
+<p>Wang, Y., Nakamura, S., Ue, M. & Balbuena, P. B. Theoretical studies to understand surface chemistry on carbon anodes for lithium-ion batteries: reduction mechanisms of ethylene carbonate. J. Am. Chem. Soc. 123, 11708–11718 (2001).</p>
+<p>Article 
+    CAS 
+    PubMed 
+    ADS 
+    
+                    Google Scholar</p>
+<p>We thank V. Neufeld, N. Artrith and the other members of the Columbia Center for Computational Electrochemistry, as well as K. Leswing and R. Abel of Schrödinger, and A. Roitberg of the University of Florida, for their advice and consultations. We acknowledge computing resources from Columbia University’s Shared Research Computing Facility.</p>
+<p>This work is supported and funded by Gates Ventures. Experimental work was funded in part by the Energy Storage Research Alliance ‘ESRA’ (DE-AC02-06CH11357), an Energy Innovation Hub funded by the US Department of Energy, Office of Science, Basic Energy Sciences. L.B. is supported by the Provost’s Postdoctoral Research Scientist and Scholar Program. A.S.A. is supported in part by the Columbia Climate School Postdoctoral Research Program at Columbia University. The authors acknowledge the use of facilities and instrumentation supported by the US National Science Foundation through the Columbia University, Columbia Nano Initiative, and the Materials Research Science and Engineering Center DMR-2011738. L.E.M. is a member of the New York Structural Biology Center. Solid-state NMR data collected at 900 MHz is supported by US National Institutes of Health grant S10OD030373. NMR instrumentation used in this work to perform low temperature solid-state NMR at 9.32 T was funded by the US National Science Foundation through award DMR-2018756.</p>
+<p>These authors contributed equally: James M. Stevenson, Garvit Agarwal, Sibali Debnath, Zachary K. Goldsmith, Monosij Mondal, Asya Svirinovsky-Arbeli, Richard A. Friesner</p>
+<p>James M. Stevenson, Garvit Agarwal, Rishabh D. Guha & John L. Weber</p>
+<p>Department of Chemistry, Columbia University, New York, NY, USA</p>
+<p>Sibali Debnath, Zachary K. Goldsmith, Monosij Mondal & Richard A. Friesner</p>
+<p>Department of Chemical Engineering, Columbia University, New York, NY, USA</p>
+<p>Asya Svirinovsky-Arbeli, In Won Yeu, Amy S. Metlay, Yongbeom Kwon, Lakshmi Bhai, Daniel A. Steingart, Lauren E. Marbella & Alexander Urban</p>
+<p>New York Structural Biology Center, New York, NY, USA</p>
+<p>J.M.S. conceptualized the project, developed the MLFF methodology, curated data, investigated predictions, validated the model and authored the paper. G.A. curated data, developed the MLFF methodology, performed molecular dynamics simulations, analysed the results and edited the paper. S.D. conceptualized and performed NMR predictions, analysed the results and edited the paper. Z.K.G developed clustering methodology, validated the MLFF model, developed methodology for and performed reduction potential calculations, analysed the results, and authored and edited the paper. M.M. developed the clustering methodology, conceptualized and performed NMR simulations, validated the MLFF model, analysed the results, and authored and edited the paper. A.S.-A. developed the NMR methodology, collected and analysed the NMR spectra, and wrote and edited the paper. I.W.Y. performed AIMD simulations, analysed results and edited the paper. A.S.M. performed solution NMR experiments, density and viscosity measurements, analysed results and edited the paper. Y.K. performed Raman measurements, analysed results and edited the paper. E.G.K. helped set up the NMR measurements and edited the paper. L.B. performed the NMR experiments, analysed results and wrote the paper R.D.G. performed validation of our MLFF and other force fields and edited the paper. J.L.W. analysed the results and edited the paper. D.A.S. authored and edited the paper. L.E.M. supervised the project, developed the NMR methodology, analysed the results, and authored and edited the paper. A.U. supervised the project and edited the paper. L.D.J. developed the MLFF methodology, conceptualized the project and edited the paper. M.D.H. supervised the project. R.A.F. conceptualized the project, supervised the project, authored and edited the paper, and acquired funding.</p>
+<p>Correspondence to
+                John L. Weber, Lauren E. Marbella or Richard A. Friesner.</p>
+<p>R.A.F. has a considerable financial stake in, is a consultant for, and is on the scientific advisory board of Schrödinger. J.M.S. and L.D.J. were employed by Schrödinger at the time of this writing. G.A., R.D.G., J.L.W. and M.D.H. are employed by Schrödinger. The other authors declare no competing interests.</p>
+<p>Nature thanks Steven Greenbaum, who co-reviewed with Giselle de Araujo Lima e Souza; and the other, anonymous, reviewer(s) for their contribution to the peer review of this work. Peer reviewer reports are available.</p>
+<p>Publisher’s note Springer Nature remains neutral with regard to jurisdictional claims in published maps and institutional affiliations.</p>
+<p>Supplementary Information including Supplementary Figs. 1–30, Tables 1–13 and References.</p>
+<p>Open Access  This article is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License, which permits any non-commercial use, sharing, distribution and reproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if you modified the licensed material. You do not have permission under this licence to share adapted material derived from this article or parts of it. The images or other third party material in this article are included in the article’s Creative Commons licence, unless indicated otherwise in a credit line to the material. If material is not included in the article’s Creative Commons licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of this licence, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.</p>
+<p>Stevenson, J.M., Agarwal, G., Debnath, S. et al. Evidence for multi-Li+ clustering in lithium-ion battery electrolytes.
+                    Nature 658, 636–642 (2026). https://doi.org/10.1038/s41586-026-11138-7</p>
+<p>DOI: https://doi.org/10.1038/s41586-026-11138-7</p>
+<p>Anyone you share the following link with will be able to read this content:</p>
+<p>Sorry, a shareable link is not currently available for this article.</p>
+<p>Provided by the Springer Nature SharedIt content-sharing initiative</p>
+<p>Nature
+                    
+                    (Nature)</p>
+<p>Sign up for the Nature Briefing newsletter — what matters in science, free to your inbox daily.</p>
+                <p style="margin-top: 25px;">
+                    <a href="https://www.nature.com/articles/s41586-026-11138-7" target="_blank" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;">
+                        &rarr; Baca artikel asli
+                    </a>
+                </p>
+            </div>
+            
+<div style="text-align:center; margin:20px 0;">
+    <script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js"></script>
+</div>
+
+            
+</body>
+</html>
