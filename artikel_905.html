@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advancing subseasonal forecasting with machine learning</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 30px auto; padding: 20px; background: #fff; line-height: 1.6; }
+        .back-btn { display: inline-block; margin-bottom: 20px; text-decoration: none; color: #fff; background: #0d6efd; padding: 8px 15px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">&larr; Kembali ke Beranda</a>
+    <h1>Advancing subseasonal forecasting with machine learning</h1>
+    <hr style="border:0; height:1px; background:#ddd; margin: 20px 0;">
+    
+            <div style="text-align:center; margin-bottom:20px;"><img src="https://media.springernature.com/m685/springer-static/image/art%3A10.1038%2Fs41586-026-11126-x/MediaObjects/41586_2026_11126_Fig1_HTML.png" style="max-width:100%; height:auto; border-radius:8px;"></div>
+            
+<div style="text-align:center; margin:20px 0;">
+    <script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js"></script>
+</div>
+
+            <div class="article-body" style="font-size: 16px; line-height: 1.8; color: #333;">
+                <p>Thank you for visiting nature.com. You are using a browser version with limited support for CSS. To obtain
+            the best experience, we recommend you use a more up to date browser (or turn off compatibility mode in
+            Internet Explorer). In the meantime, to ensure continued support, we are displaying the site without styles
+            and JavaScript.</p>
+<p>Nature
+                             (2026) Cite this article</p>
+<p>Decision-makers rely on weather forecasts to plant crops, manage wildfires, allocate water and energy and prepare for weather extremes1,2,3. Today, such forecasts enjoy unprecedented accuracy as far as 2 weeks thanks to steady advances in physics-based dynamical models and data-driven artificial intelligence models4,5,6,7,8,9,10. However, model skill drops precipitously at subseasonal timescales (2–6 weeks ahead) due to compounding errors, systemic model biases and the chaotic nature of the atmosphere11,12,13,14,15. To counter this degradation, we introduce probabilistic bias correction, a machine learning framework that substantially reduces systematic error by learning to correct historical probabilistic forecasts. When applied to the leading dynamical and artificial intelligence models from the European Centre for Medium-Range Weather Forecasts (ECMWF), probabilistic bias correction doubles the modest subseasonal skill of the AI Forecasting System16 and improves the skill of the operationally debiased dynamical model17 for 91% of pressure, 92% of temperature and 98% of precipitation targets. We designed probabilistic bias correction for operational deployment, and, in the 2025 real-time forecasting competition of ECMWF18, its global forecasts were the best for all weather variables and lead times, outperforming the dynamical models from six operational forecasting centres, an international dynamical multimodel ensemble, the AI Forecasting System of ECMWF and the forecasting systems of 34 teams worldwide. These probabilistic skill gains translate into more accurate prediction of extreme events and have the potential to improve agricultural planning, energy management and disaster preparedness in vulnerable communities19.</p>
+<p>Subseasonal forecasts—weather predictions 2–6 weeks ahead—lie at the heart of agricultural planning, water allocation, disaster preparedness and energy management1,2,3. Yet accurate prediction at this timescale remains difficult. Today, our best estimates of future weather come from dynamical models that numerically simulate how the atmosphere and oceans change over time4,5 and artificial intelligence (AI) models that learn to predict the weather from historical data6,7,8. Because of the steady improvements in modelling, computation and data collection over the past half-century, deterministic forecasting systems can now provide accurate point estimates of the weather 1–2 weeks in advance10. However, the 2-week horizon also marks a transition in predictability: beyond this point, even small differences in initial weather conditions can lead to dramatic differences in outcomes and a single deterministic forecast cannot capture this uncertainty20.</p>
+<p>To surmount this predictability barrier, one often turns to probabilistic forecasting, that is, predicting a distribution over future weather rather than a single point estimate21,22,23. Probabilistic forecasting explicitly encodes forecast uncertainty and provides actionable estimates of the likelihood of high-impact extreme events. For both dynamical and AI models, probabilistic forecasts are typically generated by perturbing the inputs, parameters or internal state of a model to produce an ensemble of possible future weather states13,23,24,25. Although these ensembles are routinely skilful at shorter lead times (to 15 days), operational dynamical ensembles and even state-of-the-art probabilistic AI routinely underperform the climatological average at longer subseasonal lead times, especially outside the tropics13.</p>
+<p>A core difficulty is that leading subseasonal ensembles are generated iteratively over many time steps and even small per-step modelling errors compound into large systematic errors over several weeks14. This effect is especially pronounced for precipitation, which is sensitive to cascading inaccuracies across model components and highly variable in space and time4,26. Indeed, subseasonal forecasting has long been considered a ‘predictability desert’ because of the compounding model errors and complex interdependencies among the atmosphere, land, ocean and sea-ice components that evolve with different timescales11,15.</p>
+<p>Although existing subseasonal ensembles are indeed error-prone, we show that a component of their systematic error is predictable and correctable using machine learning, allowing significant gains in skill with minimal cost. To achieve this, we introduce a probabilistic bias correction (PBC) framework that adaptively learns to correct the forecast distribution of a model using its own historical predictions and observations of past weather. PBC is compatible with any input model and we use it to advance the state of the art in both data-driven and hybrid (AI + dynamical) subseasonal forecasting. The resulting forecasts are designed for operational deployment and, in real-time competition18, outperform the best alternative dynamical, AI and hybrid forecasting systems from forecasting centres and competitors around the globe.</p>
+<p>PBC is a new machine learning framework for improving subseasonal forecasts from dynamical, AI or hybrid prediction systems. Given a raw ensemble of deterministic forecasts, PBC outputs learning-enhanced probabilities designed to correct systematic errors while preserving the predictive signal in the underlying model. Our approach is inspired by the deterministic bias correction framework of ref. 27 but operates directly on the space of probability distributions rather than at the level of raw observations. The added flexibility allows us to directly optimize not only the centre of a distribution but also its spread and shape.</p>
+<p>Figure 1 illustrates a sample application of PBC. First, an input ensemble is converted into an initial probabilistic forecast compared with climatological quantile bins derived from historical observations or from the hindcasts of the model. Next, two computationally efficient machine learning models—Debias++ and Persistence++—are applied in parallel to produce complementary corrections of the initial forecast. Debias++ perturbs the forecast using location-, date- and quantile-specific corrections learned by minimizing probabilistic forecasting error over adaptively selected training periods. Meanwhile, Persistence++ blends the forecast with lagged observations and climatology to account for recent weather trends and day-of-year effects. Finally, the two corrections are projected onto the space of valid cumulative distribution functions (CDFs) and averaged to form the final PBC prediction. The Methods provide further details.</p>
+<p>PBC takes as input lagged observations, climatological quantiles (for example, quintiles, terciles or deciles) and the deterministic forecasts of any dynamical or AI model and outputs a learning-enhanced probabilistic forecast designed to correct systematic prediction errors. Coastlines from Natural Earth (https://www.naturalearthdata.com/).</p>
+<p>This framework can be used to improve forecasts for any weather variable, any spatial grid and any number of quantile bins. For concreteness, we adopt the following conventions of the AI Weather Quest subseasonal forecasting competition18 run by the ECMWF. First, we focus on forecasting average 2-m temperature (over land), total precipitation (over land) and average mean sea-level pressure on a global 1.5° latitude–longitude grid with five quintile bins. Second, we evaluate subseasonal forecasts for week 3 (days 19–25) and week 4 (days 26–32) using ranked probability skill score (RPSS)28, a standard measure of forecast improvement compared with a climatological baseline. Further details on the forecasting targets and evaluation are described in the Methods.</p>
+<p>To assess the operational utility and versatility of PBC, we apply the framework to three state-of-the-art subseasonal forecasting models: the industry-leading dynamical ensemble from ECMWF17, subseasonal AI Forecasting System (AIFS-SUBS) from ECMWF16 and post-processing ensembles with transformers (POET), a hybrid model that postprocesses the ECMWF dynamical ensemble with convolutional and transformer neural networks29. As our measure of ground truth, we adopt the ERA5 reanalysis dataset30, which assimilates a wide range of observations to produce a global gridded record of the Earth’s weather from 1940 to the present, but any other target for correction could be substituted. Because PBC is so lightweight, we also incrementally retrain it each day, using only the reanalysis and model forecast data that would have been observable on each forecast issuance date to mimic operational deployment (Methods).</p>
+<p>Figure 2 summarizes the pronounced skill gains obtained when PBC is applied to the dynamical ensemble from ECMWF, widely considered to be the most accurate weather model in the world and the gold standard for benchmarking subseasonal skill31,32. For each target variable and lead time, Fig. 2a reports global RPSS over the years 2016–2024, whereas Fig. 2b shows the spatial RPSS distribution over the same time period. Negative RPSS indicates worse predictive performance than the climatological baseline, whereas positive RPSS indicates improved performance. PBC consistently improves the low-scoring raw ECMWF ensemble, tripling its positive precipitation skill (0.023 RPSS) and converting its negative-skill temperature and mean sea-level pressure forecasts into skilful predictions that consistently outperform climatology (Fig. 2a). Analogous gains are observed when skill is stratified by season (Extended Data Fig. 1) or by region (Extended Data Fig. 2) and the improvements are accompanied by a pronounced reduction in systematic model bias across the globe (Extended Data Figs. 3, 4 and 5).</p>
+<p>a, Across the years 2016–2024, PBC boosts the subseasonal skill of raw ECMWF forecasts more effectively than operational debiasing, transforming low- and no-skill inputs into skilful outputs that consistently outperform climatology. Negative RPSS indicates predictive performance worse than climatology, positive RPSS indicates improved performance and cross-hatching indicates significant improvement (paired one-sided stationary block bootstrap P < 0.05 for 239 target dates) compared with raw and debiased ECMWF. b, PBC improvements are broadly distributed with 98% of grid cells showing skill gains compared with debiased ECMWF for precipitation, 91–92% for temperature and 89–91% for sea-level pressure. Arid grid cells with no climatological precipitation are excluded. Coastlines in b from Natural Earth (https://www.naturalearthdata.com/).</p>
+<p>To dampen the systemic effects of model bias, forecasting centres routinely debias their operational forecasts by comparing each deterministic prediction to quantiles derived from model hindcasts rather than observations33. Given the same deterministic predictions as input, PBC consistently outperforms this operational debiasing protocol, replacing the near-zero precipitation skill of debiased ECMWF with consistently positive RPSS and boosting the positive temperature and pressure RPSS of debiased ECMWF by 26–37% and 16–32% (above baseline skills of 0.07–0.10 and 0.06–0.11) respectively (Fig. 2a). The PBC gains compared with debiased ECMWF are also broadly distributed with 98% of grid cells showing skill gains for precipitation, 91–92% for temperature and 89–91% for sea-level pressure (Fig. 2b). These results demonstrate that PBC can transform unskilful inputs into reliably skilful outputs and serve as an improved drop-in replacement for existing operational debiasing protocols.</p>
+<p>In fact, PBC can boost the skill of its dynamical input beyond the levels of existing AI-based subseasonal models. For example, ref. 13 recently introduced FuXi-S2S, a deep learning model that outperforms the dynamical ensemble of ECMWF at subseasonal lead times. Across the globe and the test years 2017–2021, PBC-ECMWF shows a pronounced increase in skill compared with FuXi-S2S for each variable and lead time, with 99–100% of grid cells showing skill gains for temperature, 97–99% for precipitation and 96–100% for mean sea-level pressure (Extended Data Fig. 6).</p>
+<p>Decomposing PBC into its component parts (Extended Data Fig. 7a) yields four more insights into its skill gains. First, Debias++ and Persistence++ each significantly improve (P < 0.05) on raw ECMWF for all targets. Second, Persistence++ alone significantly improves (P < 0.05) on debiased ECMWF for each target except week-4 pressure, whereas Debias++ provides smaller improvements. Third, projection minimally affects skill as Debias++ and Persistence++ forecasts are typically valid CDFs. Finally, ensembling the complementary Persistence++ and Debias++ forecasts offers robust improvements across all variables and lead times.</p>
+<p>PBC can also be used to improve the skill of AI models. For example, Fig. 3a shows the substantial skill gains obtained when PBC is applied to the state-of-the-art subseasonal AIFS-SUBS of ECMWF. The AIFS is a deep learning model that exhibits greater subseasonal skill than debiased ECMWF for the challenging task of precipitation forecasting and comparable skill for temperature and mean sea-level pressure prediction16. Across the globe and the 2025 test year, PBC consistently amplifies AIFS-SUBS skill, doubling its mean RPSS (0.03) across all variables and lead times.</p>
+<p>a, In 2025, PBC consistently enhances the subseasonal skill of ECMWF AIFS-SUBS, doubling its average skill (0.03) across all variables and lead times. b, In 2024, the hybrid (AI + dynamical) model POET already improves the skill of its dynamical input, ECMWF. Nevertheless, PBC further enhances skill for every variable and lead time with gains of 68–98% for precipitation (compared with baseline skills of 0.03–0.04), 15–23% for mean sea-level pressure (compared with baseline skills of 0.08–0.10) and 5–7% for temperature (compared with baseline skills of 0.16–0.19). Cross-hatching indicates significant improvement (paired one-sided stationary block bootstrap P < 0.05 for (a) 179 and (b) 104 week 3 and 107 week 4 target dates) compared with all baselines.</p>
+<p>We also apply PBC to a hybrid (AI + dynamical) forecasting system, POET. POET takes as input a dynamical ensemble (in this case, ECMWF) and outputs a new ensemble with all members simultaneously corrected by a transformer embedded in a convolutional neural network29. POET serves as challenging input for PBC as its ensemble has already been corrected by AI and is substantially more skilful than its raw ECMWF input. Moreover, POET has been shown to outperform other statistical and AI-based post-processing techniques including member-by-member model output statistics34,35, ensemble model output statistics36, LeNet neural network post-processing37 and pure transformer-based post-processing38. Nevertheless, PBC enhances POET skill for every variable and lead time with RPSS gains of 68–98% for precipitation (compared with baseline skills of 0.03–0.04), 15–23% for mean sea-level pressure (compared with baseline skills of 0.08–0.10) and 5–7% for temperature (compared with baseline skills of 0.16–0.19) in 2024 (Fig. 3b).</p>
+<p>A decomposition of PBC into its component parts (Extended Data Fig. 7b) shows three distinct features contributing to its improvements. First, Debias++ alone improves on its POET input for each task, highlighting the value of direct CDF optimization compared with correction only in deterministic forecast space27,29,34,35,38. Second, Persistence++ delivers even greater skill for precipitation, highlighting the value of integrating recent observations compared with a correction that ignores this source of predictability29,34,35,36,38,39. Third, ensembling the two complementary corrections robustly captures the strengths of each, highlighting the value of model merging compared with monolithic correction29,34,35,36,37,38,39.</p>
+<p>In 2025, ECMWF launched the AI Weather Quest, an international competition to benchmark and improve the state of operational subseasonal forecasting18. Each week, contestants submit real-time probabilistic forecasts for weather around the globe and, at the end of each season, models with the highest skills for week 3 and week 4 are recognized as winners. To benchmark the real-time operational utility of PBC, we entered an ensemble of PBC-ECMWF and PBC-POET into the competition under the name MicroDuet. In the inaugural September–October–November season, MicroDuet did the best for all weather variables and lead times, outperforming the debiased dynamical forecasts of six operational forecasting centres (ECMWF, NOAA, ECCC, HMCR, KMA and JMA)40, a multimodel ensemble of these six dynamical forecasts, three versions of AIFS-SUBS and the forecasting systems of 34 teams worldwide (Fig. 4). MicroDuet was also the top-performing model in both forecast periods over the entire year.</p>
+<p>MicroDuet, an ensemble of PBC-ECMWF and PBC-POET, did best in the 2025 September–October–November AI Weather Quest competition for every variable and lead time, outperforming the debiased dynamical models of six government agencies (ECMWF, NOAA, ECCC, HMCR, KMA and JMA), their dynamical multimodel ensemble (Dynamical MME), three ECMWF AI models (including their top-performing AIFShera model) and the forecasting systems of 34 teams worldwide (including the top competitors, FengshunHybrid and LPM).</p>
+<p>The MicroDuet skill gains are especially pronounced for precipitation, as the debiased models of all six operational forecasting centres exhibit negative skill, performing worse than the climatological average. The Dynamical MME recovers positive skill by aggregating across all six forecasting centres, but, with skills of 0.06–0.07, MicroDuet alone is twice as skilful in week 3 and thrice as skilful in week 4. MicroDuet also did best for both lead times in the December–January–February season of the Quest and, across 37 teams, was the only model to outperform Dynamical MME for all variables41. Across both seasons, MicroDuet was also recognized as the only submission to significantly outperform debiased ECMWF (P < 0.05) for all variables and lead times42.</p>
+<p>In November 2025, the week-4 temperature forecast in MicroDuet of a mid-December cold air outbreak in the Eastern USA was shared in real-time43 and verified as an extreme cold event44 that was missed by debiased ECMWF (Extended Data Fig. 8). This demonstrates the potential of PBC to improve not only general forecast quality but also the early detection of impactful extreme-weather events. We next assess the skill of PBC when trained to target such extreme events.</p>
+<p>The early identification of extreme weather is an important application of subseasonal forecasting that supports improved preparedness for hazards such as floods, heatwaves, droughts, storms and cold snaps. Figure 5 summarizes the substantial gains in extreme forecasting skill when PBC is applied to the dynamical ensemble from ECMWF. Following previous work45, we define extreme highs as events verifying above the 95th percentile and extreme lows as events verifying below the 5th percentile. We then train PBC to target semidecile (5% quantile) increments rather than quintiles and measure skill using the Brier skill score (BSS)28, a standard measure of improvement compared with a climatological baseline for a binary event.</p>
+<p>a,b, Across the globe and the years 2016–2024, PBC boosts ECMWF week-3 extreme forecast skill more effectively than operational debiasing with 96% of grid cells showing skill gains for precipitation, 89% for sea-level pressure and 85% for temperature. Arid grid cells with no climatological precipitation are excluded. c, Across all 2016–2026 flood events catalogued by GDACS and severe GDACS floods with more than 100 deaths or 80,000 individuals displaced, operational debiasing routinely reduces raw ECMWF flood forecast skill, whereas PBC delivers pronounced improvements. Cross-hatching indicates significant improvement (a, paired one-sided stationary block bootstrap P < 0.05 for 939 target dates; c, paired one-sided bootstrap P < 0.05 for 88 severe and 2,435 total flood events) compared with raw and debiased ECMWF. Coastlines in b from Natural Earth (https://www.naturalearthdata.com/).</p>
+<p>For each target variable and extreme, Fig. 5a reports week-3 global BSS over the years 2016–2024, whereas Fig. 5b shows the spatial BSS distribution over the same time period. For extreme precipitation and all extreme lows, PBC again transforms its low- and no-skill inputs into skilful outputs that consistently outperform climatology. For extreme highs, PBC boosts the forecasting skill of operationally debiased ECMWF by 51% (compared with a baseline skill of 0.07) for temperature and 39% (compared with a baseline skill of 0.05) for pressure (Fig. 5a). The PBC improvements compared with debiased ECMWF are also broadly distributed with 96% of grid cells showing skill gains for precipitation, 89% for sea-level pressure and 85% for temperature (Fig. 5b). Comparable improvements are also observed in week 4 (Extended Data Fig. 9).</p>
+<p>To evaluate whether these gains translate into improved hazard prediction, Fig. 5c shows flood forecasting skill across all flood events catalogued by the Global Disaster Alert and Coordination System (GDACS)46 in the years 2016–2026. For each event, flood forecasting skill is quantified by the BSS for the top precipitation semidecile across the 20° × 20° bounding box centred on the flood centroid. Given the same raw ECMWF forecasts as input, PBC boosts flood forecast skill by 76–92%, whereas debiased ECMWF dramatically reduces it, driving 0.04–0.06 baseline skills to near zero. GDACS additionally categorizes each flood on the basis of its humanitarian impact and labels a flood severe (orange or red) if it results in more than 100 deaths or 80,000 displacements46. For these high-impact events, operational debiasing only degrades or matches the 0.04–0.07 BSS of raw ECMWF, whereas PBC enhances its severe flood forecasting skill by 86–150%.</p>
+<p>Our results indicate that probabilistic post-processing with machine learning can substantially boost the quality and usefulness of subseasonal forecasts. The PBC framework achieves this through four key properties. First, across the globe, PBC consistently improves the dynamical model from ECMWF, elevating hybrid (AI + dynamical) subseasonal forecasting. Second, PBC consistently improves leading subseasonal AI models, elevating fully data-driven subseasonal forecasting. Third, PBC forecasts are suitable for operational deployment and, in real-time competition, consistently outperform the best alternative dynamical, AI and hybrid forecasting systems worldwide. Fourth, PBC consistently improves the early detection of extreme and high-impact weather events. As climate change is predicted to increase the spatial and temporal occurrence of extreme weather, improvements in early warning capability are likely to reduce preventable morbidity and mortality19.</p>
+<p>PBC targets predictable errors rather than attempting to relearn full atmospheric dynamics. Hence, it should be viewed as an effective post-processing tool rather than a replacement for input model improvement. Fortunately, the PBC framework is also inherently adaptive: as dynamical and AI models are upgraded with improved physical representation, process representations, computational capacity or training data, PBC can be retrained to ingest and correct these higher-quality inputs. Because PBC is also inexpensive compared with the generation of large-scale dynamical or AI ensembles, the framework provides a low-overhead strategy for meteorological centres, including those in resource-constrained settings, to improve their existing forecast products.</p>
+<p>With its subseasonal lead times, PBC also targets a critical gap in the weather forecasting spectrum: at longer leads, many high-impact events are not yet predictable, whereas, at shorter leads, many warnings are no longer actionable. For example, long-lead seasonal forecasts failed to predict the disastrous 2018 Kenyan floods, but subseasonal rainfall forecasts provided a clear warning so that preparation was still possible47. Growing body of evidence demonstrates the value of skilful subseasonal forecasts for disaster response, energy production, healthcare and agriculture1,2,3, especially in semi-arid regions in Eastern and Southern Africa, where agriculture remains highly susceptible to out-of-season rains48,49. However, this evidence often takes the form of isolated case studies leveraging custom post-processing to extract signal from raw model outputs50. PBC represents an important advance for subseasonal forecasting as its low-cost skill gains generalize across target variables, input models and regions. Through the accompanying release of our open-source code, we aim to provide a standardized tool for the community to bridge the gap between raw forecasts and actionable intelligence at subseasonal horizons and beyond.</p>
+<p>We begin with a formal description of the probabilistic subseasonal forecasting problem, following the conventions of the ECMWF 2025 AI Weather Quest competition18. For each week-long period beginning on a date t, let \({{\bf{y}}}_{t}\in {{\mathbb{R}}}^{G}\) represent a vector of ground-truth weather measurements yt,g for each grid cell g in a global latitude–longitude grid. We used 1979–2026 ERA5 global reanalysis30 regridded to 1.5° × 1.5° latitude–longitude resolution as our measure of ground truth and focus on predicting average 2-m temperature, total precipitation and average mean sea-level pressure across each week-long period. Both temperature and precipitation are evaluated only over land-dominated regions (that is, grid cells with at least 50% land coverage).</p>
+<p>For each grid cell g, our aim is to predict a distribution over weather at time t, expressed as a CDF Ft,g over K = 5 historical climatological quantile bins. To this end, we set qt,g(K) = ∞ and, for each k < K, define the kth climatological quintile qt,g(k) for (t,g) as the \(\frac{k}{K}\)th quantile of the observations ys,g falling 0 days, 2 days or 4 days away from the target month–day combination in each of the previous 20 years. For each k, the probabilistic forecast Ft,g(k) represents the predicted probability that the measurement yt,g will fall below the kth quintile threshold qt,g(k).</p>
+<p>Given a test set \({{\mathcal{T}}}^{\star }\) of target dates, we measure the global quality of these probabilistic forecasts by means of the RPSS28,</p>
+<p>where \({O}_{t,g}(k)={\mathbb{I}}[{y}_{t,g} < {q}_{t,g}(k)]\) is the observed indicator of whether yt,g falls below the kth quintile threshold, \({w}_{g}=\cos ({\rm{latitude}}(g))\) adjusts for the relative size of each grid cell, RPSt,g is termed the ranked probability score (RPS) of the forecast and \({\overline{{\rm{RPS}}}}_{t,g}\) is the RPS of a baseline climatological forecast that assigns equal probability to each quintile bin. For precipitation, arid grid cells g with no climatological precipitation (that is, with qt,g(K − 1) = 0) are excluded from this evaluation.</p>
+<p>Similarly, for a given grid cell g, we measure forecast quality over a test set \({{\mathcal{T}}}^{\star }\) by means of the spatial RPSS</p>
+<p>Throughout, we evaluate RPSS at two subseasonal forecasting horizons, days 19–25 (week 3) and days 26–32 (week 4). Unless otherwise noted, we use all non-leap-day Monday and Friday target dates in the years 2016–2024 as our default test set.</p>
+<p>Extended Data Table 1 provides a summary of the dynamical, AI, hybrid (dynamical + AI) and post-processing baselines compared with PBC in this work. Here we detail the processing steps taken to evaluate each baseline.</p>
+<p>At each subseasonal lead time ℓ, the operational dynamical model of ECMWF17 outputs an ensemble of deterministic forecasts, \({({\widehat{y}}_{m,{\ell },t,g})}_{m=1}^{M}\), each representing a possible future weather state. For each target weather variable and subseasonal horizon, we downloaded all weekly-aggregated ECMWF ensemble forecasts, spanning the years 2015–2026, from the subseasonal to seasonal (S2S) prediction project database54 through the International Research Institute for Climate and Society Data Library (IRIDL)51. Forecasts with M = 51 members (1 control and 50 perturbed) were issued every Monday and Thursday from 14 May 2015 to 26 June 2023 and forecasts with M = 101 members were issued daily starting on 28 June 2023. We converted each ensemble into a CDF forecast \({F}_{{\ell },t,g}(k)=\frac{1}{M}{\sum }_{m=1}^{M}{\mathbb{I}}[{\widehat{y}}_{m,{\ell },t,g} < {q}_{t,g}(k)]\) using the climatological quintile thresholds qt,g.</p>
+<p>To form the debiased ECMWF baseline, we followed the operational post-processing protocol of ECMWF33 for each weather variable and subseasonal horizon. First, we downloaded all weekly-aggregated ECMWF ensemble hindcasts from the S2S database52 through the IRIDL51. Each ensemble hindcast consists of M = 11 members, \({({\widehat{y}}_{m,{\ell },\delta ,t,g})}_{m=1}^{M}\), indexed by a forecast target date t and the number of years δ ∈ {1, …, 20} between the forecast and corresponding hindcast target dates. Next, for each forecast target date t, we identified the set \({{\mathcal{S}}}_{t}\) of model climatology dates: the closest date no later than t with available hindcasts along with the next four and previous four available dates. We then formed model-based quintile thresholds for each forecast target date t, lead time ℓ and grid cell g by setting \({q}_{{\ell },t,g}^{{\rm{ECMWF}}}(K)=\infty \) and, for each k < K, defining the kth model quintile \({q}_{{\ell },t,g}^{{\rm{ecmwf}}}(k)\) as the \(\frac{k}{K}\)th quantile of all hindcasts \({\widehat{y}}_{m,{\ell },\delta ,s,g}\) with \(s\in {{\mathcal{S}}}_{t}\). Finally, we constructed the debiased ECMWF CDF forecast \({F}_{{\ell },t,g}(k)=\frac{1}{M}{\sum }_{m=1}^{M}{\mathbb{I}}[{\hat{y}}_{m,{\ell },t,g} < {q}_{{\ell },t,g}^{{\rm{ECMWF}}}(k)]\).</p>
+<p>For each target weather variable and subseasonal horizon, we downloaded 51-member ensemble forecasts, spanning the test years 2017–2021, and 51-member ensemble hindcasts, spanning the training years 2002–2016, from the official FuXi-S2S forecast dataset53. Forecasts were subsequently aggregated to a weekly resolution, with precipitation accumulated and temperature and mean sea-level pressure averaged. Following ref. 13, we form model-based quintile thresholds for each forecast target date t, lead time ℓ and grid cell g by setting \({q}_{{\ell },t,g}^{{\rm{FuXi}}\,}(K)=\infty \) and, for each k < K, defining the kth model quintile \({q}_{{\ell },t,g}^{{\rm{FuXi}}\,}(k)\) as the \(\frac{k}{K}\)th quantile of all hindcasts matching the target month–day combination. Finally, we constructed the CDF forecast \({F}_{{\ell },t,g}(k)=\frac{1}{M}{\sum }_{m=1}^{M}{\mathbb{I}}[{\hat{y}}_{m,{\ell },t,g} < {q}_{{\ell },t,g}^{{\rm{FuXi}}\,}(k)]\) from each FuXi-S2S ensemble forecast \({({\widehat{y}}_{m,{\ell },t,g})}_{m=1}^{M}\) with M = 51.</p>
+<p>Because FuXi-S2S and ECMWF historically issued their forecasts on different schedules, we evaluated all available forecasts from FuXi-S2S and PBC-ECMWF with target dates in the period 2017–2021. This corresponds to all Monday and Friday target dates for PBC-ECMWF and, for FuXi-S2S, all Tuesday and Friday target dates in 2017, all Wednesday and Saturday target dates in 2018, all Thursday and Sunday target dates in 2019, all Monday and Friday target dates from 3 January 2020 to 24 February 2020, all Tuesday and Saturday target dates from 29 February 2020 to 29 December 2020 and all Wednesday and Sunday target dates from 3 January 2021 to 26 December 2021.</p>
+<p>For each target weather variable, subseasonal horizon and odd issuance date in 2025 (except for the 31st of any month), we generated weekly-aggregated 100-member ensemble forecasts using the AIFS-SUBS model16. AIFS-SUBS follows the architecture introduced in ref. 54, combining a transformer-based graph neural network encoder and decoder with a sliding-window transformer processor in which attention is computed along spiral longitudinal bands. Ensemble members are generated by conditioning the processor on independently sampled noise, injected by means of conditional layer normalization in each processor layer and the model is trained with the fair continuous RPS loss computed over four ensemble members against ERA5 targets55. AIFS-SUBS takes two consecutive states (t − 24 h, t) as input and predicts the atmospheric state at t + 24 h. Inputs and outputs are represented on the reduced Gaussian o96 grid (approximately 1° resolution). The variant of AIFS-SUBS used in this work includes a representation of the stratosphere and was trained exclusively on ERA5 over the periods 1979–2006 and 2012–2024, leaving a 5-year validation period.</p>
+<p>Following ref. 16, for each forecast target date t, lead time ℓ and grid cell g, we generated 10-member ensemble hindcasts for the corresponding month–day combination in each of the previous 20 years, set \({q}_{{\ell },t,g}^{{\rm{AIFS}}\,}(K)=\infty \) and, for each k < K, defined the kth model quintile \({q}_{{\ell },t,g}^{{\rm{AIFS}}\,}(k)\) as the \(\frac{k}{K}\)th quantile of the aforementioned hindcasts. Finally, we constructed the CDF forecast \({F}_{{\ell },t,g}(k)=\frac{1}{M}{\sum }_{m=1}^{M}{\mathbb{I}}[{\hat{y}}_{m,{\ell },t,g} < {q}_{{\ell },t,g}^{{\rm{AIFS}}\,}(k)]\) from each AIFS ensemble forecast \({({\widehat{y}}_{m,{\ell },t,g})}_{m=1}^{M}\) with M = 100.</p>
+<p>The POET method29 is a member-by-member post-processing technique that has been shown to significantly improve the medium-range weather forecasting skill of ECMWF dynamical forecasts and to outperform other statistical and AI-based post-processing techniques, including the member-by-member model output statistics post-processing technique34 used operationally at the Royal Meteorological Institute of Belgium35, ensemble model output statistics36, LeNet neural network post-processing37 and pure transformer-based post-processing38. POET includes a self-attention mechanism across the ensemble member dimension in its encoder-decoder convolutional U-Net architecture, allowing the model to use context from the full input forecast distribution to minimize probabilistic forecasting error. We extended POET to subseasonal horizons by making a few minor modifications to its data-processing pipeline and architecture.</p>
+<p>First, we applied POET to weekly aggregates of weather variables rather than the instantaneous values appropriate for medium-range forecasting. As input features, we used all available variables from the S2S database52 and a collection of 36 constant fields from ERA530, including orography, a land–sea mask and soil and vegetation types. Following common practice for feature embeddings, metadata, including the constant fields, lead time and weekly-averaged top-of-atmosphere incoming solar radiation, were embedded with a learned convolutional layer and used to update the highest-level features additively. To accommodate the larger set of input and output features, the model size was increased to approximately 27 million trainable parameters by increasing the number of latent features and the number of ensemble transformer layers.</p>
+<p>POET is configured by default to predict several targets, including geopotential heights, wind and humidity on a few pressure levels and surface winds and humidity, in addition to the target variables temperature, mean sea-level pressure and precipitation. Although predicting several targets improves consistency between variables, we found that the single-target model produced higher-quality outputs for precipitation on our validation set. Hence, the final results reported for POET are from the multi-target model for temperature and pressure and from the single-target model for precipitation. The POET models were developed using the 20 years of 10-member ECMWF hindcasts issued in 2024, with the hindcasts for the years 2004–2022 used for training and the 2023 hindcasts used for validation.</p>
+<p>For each target weather variable, subseasonal horizon and ECMWF forecast issuance date in 2024 (every Monday and Thursday to 21 November and every odd date thereafter), we generated weekly-aggregated ensemble forecasts, \({({\widehat{y}}_{m,{\ell },t,g})}_{m=1}^{M}\), by applying POET to the M = 100 perturbed ECMWF ensemble members. We then converted each ensemble into a CDF forecast \({F}_{{\ell },t,g}(k)=\frac{1}{M}{\sum }_{m=1}^{M}{\mathbb{I}}[{\widehat{y}}_{m,{\ell },t,g} < {q}_{t,g}(k)]\) using the climatological quintile thresholds qt,g.</p>
+<p>PBC (Fig. 1) corrects the systematic errors in probabilistic forecasts by training and applying two complementary machine learning corrections (Debias++ and Persistence++), projecting the output of each onto the space of valid distributions and finally averaging the resulting distributions. For a given weather variable, target date t⋆ and lead time ℓ⋆, each machine learning algorithm is given access to a model’s uncorrected CDF forecasts \({{\bf{F}}}_{{{\ell }}^{\star },{t}^{\star }}={({F}_{{{\ell }}^{\star },{t}^{\star },g})}_{g=1}^{G}\) for the target, a dataset of historical CDF forecasts \({{\bf{F}}}_{{\ell },t}={({F}_{{\ell },t,g})}_{g=1}^{G}\) from the model with training set target dates \(t\in {\mathcal{T}}\) and lead times \({\ell }\in {\mathcal{L}}\) and observed cumulative quantile bin indicators \({{\bf{O}}}_{t}={({O}_{t,g})}_{g=1}^{G}\) for each \(t\in {\mathcal{T}}\). To mimic operational deployment, each algorithm is only given access to training observations that would have been fully observable ℓ⋆ − 1 days previous to the target date t⋆.</p>
+<p>For each quantile bin k, Debias++ (Algorithm 1) performs probabilistic forecast correction in four steps. First, to account for heterogeneity in forecast errors over time, Debias++ adaptively selects a span s of observations around the target day of year for probabilistic debiasing and a range d⋆ of forecast issuance dates for ensembling. Second, Debias++ forms ensemble mean probabilistic forecasts \({\overline{{\bf{F}}}}_{t}(k)\) by averaging its input CDF forecasts over the selected range of issuance dates. Third, to directly counteract systematic errors, Debias++ corrects the target CDF forecast \({\overline{{\bf{F}}}}_{{t}^{\star }}(k)\) by subtracting the probabilistic prediction bias—the average forecast value \({\overline{{\bf{F}}}}_{t}(k)\) minus the average observed value Ot(k)—over the selected debiasing window across the previous Y years. Finally, the results are projected into the valid probability range [0, 1].</p>
+<p>In every application of Debias++, we set Y = 20, selected the configuration (s, d⋆) ∈ {(14, 1), (28, 1), (35, 1)} that minimized mean RPS over the 3 years preceding the target date t⋆ and converted each available ensemble forecast \({({\widehat{y}}_{m,{\ell },t,g})}_{m=1}^{M}\) and hindcast \({({\widehat{y}}_{m,{\ell },\delta ,t,g})}_{m=1}^{M}\) into an input CDF forecast using the observed climatological quintile thresholds qt,g:</p>
+<p>input target date t⋆; quantile bin k; lead time ℓ⋆; span s; # issuance dates d⋆; # training years Y; training set of observed cumulative quantile bin indicators \({({{\bf{O}}}_{t})}_{t\in {\mathcal{T}}}\) and cumulative probability forecasts \({({{\bf{F}}}_{{\ell },t})}_{{\ell }\in {\mathcal{L}},t\in {\mathcal{T}}\cup \{{t}^{\star }\}}\)</p>
+<p>\({\mathcal{S}}=\left\{t\in {\mathcal{T}}:\mathrm{year}\_\mathrm{diff}:= \left\lfloor \frac{{t}^{\star }-t}{D}\right\rfloor \le Y\,{\rm{and}}\,\mathrm{day}\_\mathrm{diff}:= \frac{365}{2}-\left|\lfloor ({t}^{\star }-t)\,{\rm{mod}}\,D\rfloor -\frac{365}{2}\right|\le s\right\}\)</p>
+<p>// Form ensemble mean probabilistic forecasts across issuance dates</p>
+<p>for target and training dates \(t\in {\mathcal{S}}\cup \{{t}^{\star }\}\) do</p>
+<p>\({\bar{{\bf{F}}}}_{t}(k)\) mean(\({({{\bf{F}}}_{{{\ell }}^{\star }-d+1,t}(k))}_{1\le d\le {d}^{\star }}\))</p>
+<p>output clip (\({\bar{{\bf{F}}}}_{{t}^{\star }}(k)\) + mean(\({({{\bf{O}}}_{t}(k)-{\bar{{\bf{F}}}}_{t}(k))}_{t\in {\mathcal{S}}}\)), [0,1])</p>
+<p>For each quantile bin k and grid cell g, Persistence++ (Algorithm 2) accounts for both recent weather trends and climatological shifts by regressing the observed indicator Ot,g(k) onto the historical model forecast \({F}_{{{\ell }}^{\star },t,g}(k)\), two recent and fully observable lagged indicators \({O}_{t-{{\ell }}^{\star }+6,g}(k)\) and \({O}_{t-2{{\ell }}^{\star }+5,g}(k)\) and a probabilistic climatology formed from the preceding 20 years of observed indicators with matching month and day. In the climatology computation, any missing indicators are imputed with the prior value \(\frac{k}{K}\). The learned regression weights are applied to the target forecast \({F}_{{{\ell }}^{\star },{t}^{\star },g}(k)\), lagged observations and climatology to produce a corrected output that is then projected into the valid probability range [0, 1].</p>
+<p>When applying Persistence++ to POET forecasts or ECMWF precipitation forecasts, we again converted each available ensemble forecast and hindcast into an input CDF forecast using the observed climatological quintile thresholds. In all other applications of Persistence++, we used model-based quintile thresholds \({q}_{{\ell },t,g}^{{\rm{model}}}\) for a given forecast target date t to convert both the ensemble forecast \({({\widehat{y}}_{m,{\ell },t,g})}_{m=1}^{M}\) and the associated ensemble hindcasts \({({\widehat{y}}_{m,{\ell },\delta ,t,g})}_{m=1}^{M}\) into input CDF forecasts:</p>
+<p>input target date t⋆; quantile bin k; lead time ℓ⋆; training set of observed cumulative quantile bin indicators \({({{\bf{O}}}_{t})}_{t\in {\mathcal{T}}}\) and cumulative probability forecasts \({({{\bf{F}}}_{{{\ell }}^{\star },t})}_{t\in {\mathcal{T}}\cup \{{t}^{\star }\}}\)</p>
+<p>initialize forecast period length L = 7, # climatology years Y = 20</p>
+<p>// Form rolling probabilistic climatology from observed indicators</p>
+<p>for target and training dates \(t\in {\mathcal{T}}\cup \{{t}^{\star }\}\) do</p>
+<p>Ct(k) = mean({Os(k) : monthday(s) = monthday(t), 1 ≤ year(t) − year(s) ≤ Y})</p>
+<p>// Combine probabilistic forecast, climatology and lagged observations</p>
+<p>\(\begin{array}{l}{\widehat{{\boldsymbol{\beta }}}}_{g}\in {{\rm{argmin}}}_{{\boldsymbol{\beta }}}{\sum }_{t\in {\mathcal{T}}}({O}_{t,g}(k)\\ \,-\,{{\boldsymbol{\beta }}}^{\top }[1,{C}_{t,g}(k),{O}_{t-{{\ell }}^{\star }-L+1,g}(k),{O}_{t-2{{\ell }}^{\star }-L+2,g}(k),{F}_{{{\ell }}^{\star },t,g}(k)]{)}^{2}\end{array}\)</p>
+<p>output clip (\(({\widehat{{\boldsymbol{\beta }}}}_{g}^{\top }[1,{C}_{{t}^{\star },g}(k),{O}_{{t}^{\star }-{{\ell }}^{\star }-L+1,g}(k),{O}_{{t}^{\star }-2{{\ell }}^{\star }-L+2,g}(k),\)</p>
+<p>\({F}_{{{\ell }}^{\star },{t}^{\star },g}(k)]{)}_{g=1}^{G},\) [0, 1])</p>
+<p>It is possible for the quantile bin predictions of Debias++ and Persistence++ to violate the constraint that cumulative probabilities must be non-decreasing across quantile thresholds. In such cases, we use isotonic regression56 to project their output forecasts onto the space of valid CDFs. This operation is guaranteed to improve forecast skill as, by minimizing squared error to the set of valid CDFs, it increases RPSS for all possible observations simultaneously. The final PBC forecast averages the two projected corrections to capture the complementary benefits of each.</p>
+<p>To form the MicroDuet model used in the AI Weather Quest, we considered three combinations of the PBC-ECMWF and PBC-POET forecasts—an equal-weighted average, full weight on PBC-ECMWF and full weight on PBC-POET—and selected the combination that maximized 2024 RPSS for each variable and lead time. The resulting selection gave equal weight to PBC-ECMWF and PBC-POET for temperature, full weight to PBC-ECMWF for precipitation and full weight to PBC-POET for mean sea-level pressure.</p>
+<p>For each target weather variable and model, Fig. 4 reports the AI Weather Quest leaderboard scores for the September–October–November contest season41. The Quest scored each model against ERA5-T ground truth30 using the RPSS across all Monday target dates \({{\mathcal{T}}}^{\star }\) from 1 September 2025 to 24 November 2025 (inclusive) for week 3 and from 8 September 2025 to 1 December 2025 (inclusive) for week 4.</p>
+<p>When forecasting extreme highs or extreme lows, each model is used to predict the probability of the top semidecile (measurements verifying above the 95th percentile) or the bottom semidecile (measurements verifying below the 5th percentile) respectively. Given a test set \({{\mathcal{T}}}^{\star }\) of target dates, we measured extreme forecast quality by means of the BSS57,</p>
+<p>where K = 20, k = 1 for extreme lows, k = K − 1 for extreme highs, BSt,g is termed the Brier score (BS) of the forecast and \({\overline{{\rm{BS}}}}_{t,g}\) is the BS of a baseline climatological forecast that assigns equal probability to each semidecile bin.</p>
+<p>To assess forecast skill during observed flood events, we constructed a global catalogue of flood occurrences from the GDACS (https://www.gdacs.org). Flood events (event type FL) at all alert levels (green, orange, red) were retrieved through the GDACS REST API for the date range 1 January 2016 to 29 May 2026. Each GDACS event record provides a centroid (latitude, longitude) coordinate and an event start date; from these we derived for every event (1) a geographic bounding box of ±10° around the centroid (clamped to [−90°, 90°] in latitude) and (2) a 7-day target period beginning on the event start date. Only events with start dates matching the target date of an ECMWF dynamical forecast (that is, Monday or Friday start dates until 15 July 2023 for week 3 or until 22 July 2023 for week 4 and all start dates thereafter) were evaluated. This yielded 2,435 flood events for week 3 and 2,428 for week 4. The severe flood analysis filtered these events to floods with orange or red alert levels yielding 88 events at each lead time.</p>
+<p>For a given test set \({{\mathcal{T}}}^{\star }\) of flood event target dates, we measured flood forecast quality by means of the BSS (1) for the top precipitation semidecile bin (k = K − 1 for K = 20) with g now enumerating the bounding box grid cells.</p>
+<p>Paired Wilcoxon signed-rank tests were used to test for significant RPSS differences across the T = 26 weeks of the September–October–November and December–January–February AI Weather Quest seasons42. Because the exact issuance dates of the FuXi-S2S and ECMWF dynamical model seldom coincided in the 2017–2021 test period of Extended Data Fig. 6, we reported (two-sided) stationary block bootstrap58 confidence intervals based on the bias-corrected and accelerated bootstrap59 with automatic block length selection60, 5,000 bootstrap replicates, T = 514 target dates for FuXi-S2S and T = 522 target dates for PBC-ECMWF.</p>
+<p>For significance testing in Fig. 5c, we used paired one-sided bootstrap tests of BSS improvement using the bias-corrected and accelerated bootstrap with 5,000 bootstrap replicates, T = 88 severe flood events, T = 2,435 total week-3 flood events and T = 2,428 total week-4 flood events. For all other significance tests, we used paired one-sided stationary block bootstrap tests of skill score improvement using the bias-corrected and accelerated bootstrap with automatic block length selection, 5,000 bootstrap replicates and T target dates for T = 939 (Figs. 2 and 5a and Extended Data Figs. 2, 7a and 9a), T = 179 (Fig. 3a), T = 104 (Fig. 3b and Extended Data Fig. 7b, week 3), T = 107 (Fig. 3b and Extended Data Fig. 7b, week 4), T = 232 (Extended Data Fig. 1, December–January–February), T = 237 (Extended Data Fig. 1, March–April–May), T = 236 (Extended Data Fig. 1, June–July–August) and T = 234 (Extended Data Fig. 1, September–October–November).</p>
+<p>All ERA5 data used in this study is available through the Climate Data Store of the Copernicus Climate Change Service (https://cds.climate.copernicus.eu). All dynamical data used in this study are available in the S2S prediction project database52. S2S is a joint initiative of the World Weather Research Programme and the World Climate Research Programme. The original S2S database is hosted at ECMWF as an extension of the TIGGE database (https://apps.ecmwf.int/datasets/data/s2s). All AI Weather Quest evaluations are available through the AI Weather Quest leaderboard (https://aiweatherquest.ecmwf.int/leaderboards/). All FuXi-S2S forecasts are available in the official FuXi-S2S forecast dataset53. All flood events are available through the GDACS REST API (https://www.gdacs.org). All maps were generated using the Cartopy Python package61 with coastlines, continguous US borders and lake boundaries provided by Natural Earth (https://www.naturalearthdata.com/). Source data are provided with this paper.</p>
+<p>Open-source code implementing PBC and the experiments in this work is available at GitHub (https://github.com/mouatadid/pbc) and Zenodo (https://doi.org/10.5281/zenodo.22238796)62. Open-source code for the POET model is available at Github (https://github.com/ecmwf-lab/poet/). Code for training AIFS-SUBS is available in the anemoi open-source package (https://github.com/ecmwf/anemoi-core).</p>
+<p>White, C. J. et al. Potential applications of subseasonal-to-seasonal (S2S) predictions. Meteorol. Appl. 24, 315–325 https://doi.org/10.1002/met.1654 (2017).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Vitart, F. & Robertson, A. W. The sub-seasonal to seasonal prediction project (S2S) and the prediction of extreme events. npj Clim. Atmos. Sci. 1, 3 https://doi.org/10.1038/s41612-018-0013-0 (2018).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Merryfield, W. J. et al. Current and emerging developments in subseasonal to decadal prediction. Bull. Am. Meteorol. Soc. 101, 869–896 https://doi.org/10.1175/BAMS-D-19-0037.1 (2020).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Bauer, P., Thorpe, A. & Brunet, G. The quiet revolution of numerical weather prediction. Nature 525, 47–55 (2015).</p>
+<p>Article 
+    ADS 
+    PubMed 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Ben Bouallègue, Z. et al. The rise of data-driven weather forecasting: a first statistical assessment of machine learning-based weather forecasts in an operational-like context. Bull. Am. Meteorol. Soc. 105, 864–883 https://doi.org/10.1175/BAMS-D-23-0162.1 (2024).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Bi, K. et al. Accurate medium-range global weather forecasting with 3D neural networks. Nature 619, 533–538 (2023).</p>
+<p>Article 
+    ADS 
+    PubMed 
+    PubMed Central 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Lam, R. et al. Learning skillful medium-range global weather forecasting. Science 382, 1416–1421 https://doi.org/10.1126/science.adi2336 (2023).</p>
+<p>Article 
+    ADS 
+    MathSciNet 
+    PubMed 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Bodnar, C. et al. A foundation model for the Earth system. Nature 641, 1180–1187 https://doi.org/10.1038/s41586-025-09005-y (2025).</p>
+<p>Article 
+    ADS 
+    PubMed 
+    PubMed Central 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Chen, L. et al. FuXi: a cascade machine learning forecasting system for 15-day global weather forecast. npj Clim. Atmos. Sci. 6, 190 (2023).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Rasp, S. et al. Weatherbench 2: a benchmark for the next generation of data-driven global weather models. J. Adv. Model. Earth Syst. 16, e2023MS004019 (2024).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Vitart, F., Robertson, A. W. & Anderson, D. L. Subseasonal to seasonal prediction project: bridging the gap between weather and climate. Bull. World Meteorol. Org. 61, 23 (2012).</p>
+<p>Cohen, J. et al. S2S reboot: an argument for greater inclusion of machine learning in subseasonal to seasonal forecasts. WIREs Clim. Change 10, 00567 https://doi.org/10.1002/wcc.567 (2019).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Chen, L. et al. A machine learning model that outperforms conventional global subseasonal forecast models. Nat. Commun. 15, 6425 https://doi.org/10.1038/s41467-024-50714-1 (2024).</p>
+<p>Article 
+    ADS 
+    PubMed 
+    PubMed Central 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Nathaniel, J. et al. Chaosbench: a multi-channel, physics-based benchmark for subseasonal-to-seasonal climate prediction. Adv. Neural Info. Process. Syst. 37, 43715–43729 (2024).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Richter, J.H. & Joseph, E. Scientists must join forces to solve forecasting’s predictability desert. EOS https://doi.org/10.1029/2025EO250389 (2025).</p>
+<p>Schloer, J. et al. AIFS-SUBS: extending data-driven forecasting to sub-seasonal timescales. Preprint at https://doi.org/10.48550/arXiv.2607.05100 (2026).</p>
+<p>Tuppi, L., Ekblom, M., Ollinaho, P. & Järvinen, H. Simultaneous optimization of 20 key parameters of the integrated forecasting system of ECMWF using OpenIFS. Part I: effect on deterministic forecasts. Mon. Weather Rev. 151, 1325–1346 (2023).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Loegel, O., Talib, J., Vitart, F., Hoffmann, J. & Chantry, M. The AI Weather Quest: an international competition for sub-seasonal forecasting with AI. Mach. Learn. Earth 1, 010701 https://doi.org/10.1088/3049-4753/adf649 (2025).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Shrader, J. G., Thies, S., Bakkensen, L., Linsenmeier, M. & Lemoine, D. Weather forecasts become more important for reducing mortality as the climate warms. Proc. Natl Acad. Sci. USA 123, 2523372123 https://doi.org/10.1073/pnas.2523372123 (2026).</p>
+<p>Article 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Lorenz, E. N. The predictability of a flow which possesses many scales of motion. Tellus 21, 289–307 (1969).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Gneiting, T. & Raftery, A. E. Weather forecasting with ensemble methods. Science 310, 248–249 (2005).</p>
+<p>Article 
+    PubMed 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Palmer, T. N. The economic value of ensemble forecasts as a tool for risk assessment: from days to decades. Q. J. R. Meteorol. Soc. 128, 747–774 (2002).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Mylne, K. Probability forecasts—part 1: ensembles and probabilistic forecasts. Weather 81, 82–88 (2026).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Palmer, T. The ECMWF ensemble prediction system: looking back (more than) 25 years and projecting forward 25 years. Q. J. R. Meteorol. Soc. 145, 12–24 (2019).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Price, I. et al. Probabilistic weather forecasting with machine learning. Nature 637, 84–90 https://doi.org/10.1038/s41586-024-08252-9 (2025).</p>
+<p>Article 
+    ADS 
+    PubMed 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Stephens, G. L. et al. Dreary state of precipitation in global models. J. Geophys. Res. Atmos. 115, D24211 (2010).</p>
+<p>Mouatadid, S. et al. Adaptive bias correction for improved subseasonal forecasting. Nat. Commun. https://doi.org/10.1038/s41467-023-38874-y (2023).</p>
+<p>Weigel, A. P., Liniger, M. A. & Appenzeller, C. The discrete brier and ranked probability skill scores. Mon. Weather Rev. 135, 118–124 https://doi.org/10.1175/MWR3280.1 (2007).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Bouallègue, Z. B. et al. Improving medium-range ensemble weather forecasts with hierarchical ensemble transformers. Artif. Intell. Earth Syst. 3, 230027 https://doi.org/10.1175/AIES-D-23-0027.1 (2024).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Hersbach, H. et al. The ERA5 global reanalysis. Q. J. R. Meteorol. Soc. 146, 1999–2049 https://doi.org/10.1002/qj.3803 (2020).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Andrade, F. M., Coelho, C. A. S. & Cavalcanti, I. F. A. Global precipitation hindcast quality assessment of the subseasonal to seasonal (S2S) prediction project models. Clim. Dyn. 52, 5451–5475 (2019).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Domeisen, D. I. V. et al. Advances in the subseasonal prediction of extreme events: relevant case studies across the globe. Bull. Am. Meteorol. Soc. 103, 1473–1501 https://doi.org/10.1175/BAMS-D-20-0221.1 (2022).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Section 5.3.2 SUBS-M-climate, the Sub-aseasonal Model Climate https://confluence.ecmwf.int/spaces/FUG/pages/673550755/Section+5.3.2+SUBS-M-climate+the+sub-seasonal+model+climate (ECMWF, accessed 2022).</p>
+<p>Van Schaeybroeck, B. & Vannitsem, S. Ensemble post-processing using member-by-member approaches: theoretical aspects. Q. J. R. Meteorol. Soc. 141, 807–818 (2015).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Vannitsem, S. & Demaeyer, J. Statistical post-processing of ensemble forecasts at the Belgian Met service. ECMWF Newsl. 164, 28–33 https://doi.org/10.21957/vb78ui92dj (2020).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Gneiting, T., Raftery, A. E., Westveld, A. H. & Goldman, T. Calibrated probabilistic forecasting using ensemble model output statistics and minimum CRPS estimation. Mon. Weather Rev. 133, 1098–1118 https://doi.org/10.1175/MWR2904.1 (2005).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Li, W., Pan, B., Xia, J. & Duan, Q. Convolutional neural network-based statistical post-processing of ensemble precipitation forecasts. J. Hydrol. 605, 127301 https://doi.org/10.1016/j.jhydrol.2021.127301 (2022).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Finn, T.S. Self-attentive ensemble transformer: representing ensemble interactions in neural networks for Earth System Models. Preprint at https://doi.org/10.48550/arXiv.2106.13924 (2021).</p>
+<p>Scheuerer, M., Switanek, M. B., Worsnop, R. P. & Hamill, T. M. Using artificial neural networks for generating probabilistic subseasonal precipitation forecasts over California. Mon. Weather Rev. 148, 3489–3506 https://doi.org/10.1175/MWR-D-20-0096.1 (2020).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Vitart, F. et al. The WWRP/WCRP S2S project and its achievements. Bull. Am. Meteorol. Soc. 106, 791–808 https://doi.org/10.1175/BAMS-D-24-0047.1 (2025).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>AI Weather Quest Leaderboards https://aiweatherquest.ecmwf.int/leaderboards/ (ECMWF, accessed 15 April 2026).</p>
+<p>Talib, J., Loegel, O., Vitart, F., Hoffmann, J. & Schloer, J. The AI Weather Quest: spotlighting the best of machine learning sub-seasonal prediction. ECMWF Sci. Blog https://www.ecmwf.int/en/about/media-centre/science-blog/2026/ai-weather-quest-2026 (2026).</p>
+<p>Oliveira, A. Northeast set to be blasted by ‘most extreme cold on Earth’ before Christmas. New York Post https://nypost.com/2025/12/01/us-news/northeast-set-to-be-blasted-by-most-extreme-cold-on-earth-before-christmas/ (2025).</p>
+<p>Atienza, J. Polar vortex blankets eastern US with dangerously cold conditions, affecting over 70M Americans. Originally published by FOX Weather. New York Post https://nypost.com/2025/12/15/us-news/polar-vortex-blankets-eastern-us-with-dangerous-temperatures-affecting-over-70m-americans/ (2026).</p>
+<p>Diffenbaugh, N. S., Pal, J. S., Trapp, R. J. & Giorgi, F. Fine-scale processes regulate the response of extreme events to global climate change. Proc. Natl Acad. Sci. USA 102, 15774–15778 https://doi.org/10.1073/pnas.0506042102 (2005).</p>
+<p>Article 
+    ADS 
+    PubMed 
+    PubMed Central 
+    CAS 
+    
+                    Google Scholar</p>
+<p>Masante, D. et al. Multi-Hazard Early Warning System Global Disaster Alert and Coordination System (GDACS)—Methods for Anticipation and Rapid Impact Estimation User Manual (version 2) https://doi.org/10.2760/1461943 (Publications Office of the European Union, 2025).</p>
+<p>Kilavi, M. et al. Extreme rainfall and flooding over Central Kenya including Nairobi City during the long-rains season 2018: causes, predictability, and potential for early warning and actions. Atmosphere 9, 472 https://doi.org/10.3390/atmos9120472 (2018).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Kolstad, E. W., Barimalala, R. & Parker, D. J. Skilful subseasonal forecasts of dry spells: a case study for Malawi. Clim. Dyn. 63, 425 (2025).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Mwangi, E., MacLeod, D., Kniveton, D. & Todd, M. C. Variability of rainy season onsets over East Africa. Int. J. Climatol. 44, 3357–3379 https://doi.org/10.1002/joc.8528 (2024).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Turner, W. et al. Investigating the performance of high-resolution subseasonal precipitation forecasts in support of food insecurity early warning. Environ. Res. Clim. 4, 025002 https://doi.org/10.1088/2752-5295/adcadf (2025).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>ECMWF S2S data: ECMWF S2S ECMF: ECMWF Ensemble https://iridl.ldeo.columbia.edu/SOURCES/.ECMWF/.S2S/.ECMF/ (IRI, 2026).</p>
+<p>Vitart, F. et al. The subseasonal to seasonal (S2S) prediction project database. Bull. Am. Meteorol. Soc. 98, 163–173 https://doi.org/10.1175/BAMS-D-16-0017.1 (2017).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Zhong, X. FuXi-S2S (Revision f63dc2e). Hugging Face https://huggingface.co/datasets/FudanFuXi/FuXi-S2S (2025).</p>
+<p>Lang, S. et al. AIFS—ECMWF’s data-driven forecasting system. Preprint at https://doi.org/10.48550/arXiv.2406.01465 (2024).</p>
+<p>Lang, S. et al. AIFS-CRPS: ensemble forecasting using a model trained with a loss function based on the continuous ranked probability score. NPJ Artif. Intell. https://doi.org/10.1038/s44387-026-00073-7 (2026).</p>
+<p>Best, M. J. & Chakravarti, N. Active set algorithms for isotonic regression; a unifying framework. Math. Program. 47, 425–439 (1990).</p>
+<p>Article 
+    MathSciNet 
+    
+                    Google Scholar</p>
+<p>Brier, G. W. Verification of forecasts expressed in terms of probability. Mon. Weather Rev. 78, 1–3 (1950).</p>
+<p>Article 
+    ADS 
+    
+                    Google Scholar</p>
+<p>Politis, D. N. & Romano, J. P. The stationary bootstrap. J. Am. Stat. Assoc. 89, 1303–1313 (1994).</p>
+<p>Article 
+    MathSciNet 
+    
+                    Google Scholar</p>
+<p>Efron, B. & Narasimhan, B. The automatic construction of bootstrap confidence intervals. J. Comput. Graph. Stat. 29, 608–619 https://doi.org/10.1080/10618600.2020.1714633 (2020).</p>
+<p>Article 
+    MathSciNet 
+    PubMed 
+    PubMed Central 
+    
+                    Google Scholar</p>
+<p>Patton, A., Politis, D. N. & White, H. Correction to “Automatic block-length selection for the dependent bootstrap” by D. Politis and H. White. Econometr. Rev. 28, 372–375 https://doi.org/10.1080/07474930802459016 (2009).</p>
+<p>Article 
+    
+                    Google Scholar</p>
+<p>Met Office. Cartopy: A cartographic Python Library with a Matplotlib Interface https://cartopy.readthedocs.io (2010).</p>
+<p>Mouatadid, S. & Mackey, L. mouatadid/pbc: Replication code for advancing subseasonal forecasting with machine learning (version v1.0.0). Zenodo https://doi.org/10.5281/zenodo.22238796 (2026).</p>
+<p>Lu, B. et al. CMAandFDU (team page) https://aiweatherquest.ecmwf.int/team/cmaandfdu/ (AI Weather Quest, accessed 14 April 2026).</p>
+<p>Lu, P. LP (team page) https://aiweatherquest.ecmwf.int/team/lp/ (AI Weather Quest, accessed 14 April 2026).</p>
+<p>P.O. was supported by FAPERJ (Fundação Carlos Chagas Filho de Amparo à Pesquisa do Estado do Rio de Janeiro) grant no. SEI-260003/020673/2025. J.C. was supported by National Science Foundation grant no. AGS-2140909. J.S. and J.T. were supported with funding from the European Union, provided to ECMWF under the Contribution Agreement between the European Union, represented by the European Commission and ECMWF on the implementation of the Destination Earth (DestinE) Initiative.</p>
+<p>These authors contributed equally: Hannah Guan, Soukayna Mouatadid</p>
+<p>University of Toronto, Toronto, Ontario, Canada</p>
+<p>Instituto de Matemática Pura e Aplicada, Rio de Janeiro, Brazil</p>
+<p>Department of Civil and Environmental Engineering, Massachusetts Institute of Technology, Cambridge, MA, USA</p>
+<p>Haiyu Dong, Zekun Ni, Jeremy Berman & Jonathan A. Weyn</p>
+<p>European Centre for Medium-Range Weather Forecasts, Reading, UK</p>
+<p>H.G. performed her work as an intern at Microsoft Research. H.G., S.M., P.O., J.C., H.D., Z.N., G.F., A.L., J.A.W. and L.M. conceptualized the work. S.M., J.C., A.L., J.A.W. and L.M. managed the project. H.G., S.M., P.O., G.F., J.T., J.A.W. and L.M. curated data. H.G., S.M., P.O., H.D., Z.N., J.A.W. and L.M. developed models. H.G., S.M., P.O., J.B., G.F., J.T., J.S., J.A.W. and L.M. wrote code. H.G., S.M., P.O., J.B., J.S., J.A.W. and L.M. conducted experiments and evaluation. H.G., S.M., P.O., J.C. and L.M. wrote the original draft of the paper. H.D., J.B., G.F., A.L., J.S., J.T., J.A.W., J.C. and L.M. reviewed and edited the paper.</p>
+<p>Correspondence to
+                Judah Cohen or Lester Mackey.</p>
+<p>J.C., H.D., Z.N., J.B., A.L., J.A.W. and L.M. own Microsoft stock. H.D., Z.N., A.L., J.A.W. and L.M. are Microsoft employees. The remaining authors declare no competing interests.</p>
+<p>Nature thanks the anonymous reviewers for their contribution to the peer review of this work. Peer reviewer reports are available.</p>
+<p>Publisher’s note Springer Nature remains neutral with regard to jurisdictional claims in published maps and institutional affiliations.</p>
+<p>Across the years 2016-2024, PBC boosts the skill of ECMWF and operationally debiased ECMWF in every season. Crosshatching indicates significant improvement (P < 0.05) over raw and debiased ECMWF.</p>
+<p>Across the years 2016-2024 and world regions defined by the associated latitude-longitude bounding boxes, PBC boosts the skill of ECMWF and operationally debiased ECMWF. Crosshatching indicates significant improvement (P < 0.05) over raw and debiased ECMWF, while single hatching indicates significant improvement over one baseline.</p>
+<p>Across the globe, the years 2016–2024, and all probabilistic quintile bins, PBC reduces the systematic bias of ECMWF more effectively than operational debiasing. Coastlines from Natural Earth (https://www.naturalearthdata.com/).</p>
+<p>Across the globe, the years 2016-2024, and all probabilistic quintile bins, PBC reduces the systematic bias of ECMWF more effectively than operational debiasing. Coastlines from Natural Earth (https://www.naturalearthdata.com/).</p>
+<p>Across the globe, the years 2016–2024, and all probabilistic quintile bins, PBC substantially reduces the systematic bias of ECMWF. Coastlines from Natural Earth (https://www.naturalearthdata.com/).</p>
+<p>Across the years 2017–2021, PBC-ECMWF (a) displays a pronounced improvement in skill over the FuXi-S2S AI model for each variable and lead time with (b) 99–100% of grid cells showing skill gains for temperature, 97–99% for precipitation, and 96–100% for mean sea level pressure. Arid grid cells with no climatological precipitation are excluded. The error bars display 95% bootstrap confidence intervals. Coastlines in b from Natural Earth (https://www.naturalearthdata.com/).</p>
+<p>(a) Across the years 2016–2024, for every variable and lead time, Persistence++ and Debias++ individually boost the subseasonal skill of raw ECMWF forecasts and contribute to robust skill gains over operational debiasing through ensembling. (b) In 2024, PoET already improves the skill of its dynamical input, ECMWF. Nevertheless, PBC further enhances skill for every variable and lead time thanks to direct adaptive CDF optimization with Debias++, the integration of recent and climatological observations through Persistence++, and the robust combination of these complementary corrections via ensembling. Crosshatching indicates significant improvement (P < 0.05) over all baselines, while single hatching indicates significant improvement over at least one baseline.</p>
+<p>MicroDuet’s real-time week 4 temperature forecast (issued on November 20, 2025 for the AI Weather Quest competition) anticipated the mid-December cold air outbreak in the Eastern United States43, an extreme cold event44 missed by the leading debiased dynamical model from ECMWF. Coastlines, contiguous US borders and lakes from Natural Earth (https://www.naturalearthdata.com/).</p>
+<p>Across the globe and the years 2016–2024, PBC boosts ECMWF extreme forecast skill more effectively than operational debiasing protocols with 96% of grid cells showing skill gains for precipitation, 90% for sea level pressure, and 85% for temperature. (a) Crosshatching indicates significant improvement (P < 0.05) over raw and debiased ECMWF. (b) Arid grid cells with no climatological precipitation are excluded. Coastlines from Natural Earth (https://www.naturalearthdata.com/).</p>
+<p>Open Access  This article is licensed under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License, which permits any non-commercial use, sharing, distribution and reproduction in any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence, and indicate if you modified the licensed material. You do not have permission under this licence to share adapted material derived from this article or parts of it. The images or other third party material in this article are included in the article’s Creative Commons licence, unless indicated otherwise in a credit line to the material. If material is not included in the article’s Creative Commons licence and your intended use is not permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of this licence, visit http://creativecommons.org/licenses/by-nc-nd/4.0/.</p>
+<p>Guan, H., Mouatadid, S., Orenstein, P. et al. Advancing subseasonal forecasting with machine learning.
+                    Nature  (2026). https://doi.org/10.1038/s41586-026-11126-x</p>
+<p>DOI: https://doi.org/10.1038/s41586-026-11126-x</p>
+<p>Anyone you share the following link with will be able to read this content:</p>
+<p>Sorry, a shareable link is not currently available for this article.</p>
+<p>Provided by the Springer Nature SharedIt content-sharing initiative</p>
+<p>Nature
+                    
+                    (Nature)</p>
+<p>Sign up for the Nature Briefing newsletter — what matters in science, free to your inbox daily.</p>
+                <p style="margin-top: 25px;">
+                    <a href="https://www.nature.com/articles/s41586-026-11126-x" target="_blank" rel="nofollow noopener" style="color: #0d6efd; text-decoration: none; font-weight: bold;">
+                        &rarr; Baca artikel asli
+                    </a>
+                </p>
+            </div>
+            
+<div style="text-align:center; margin:20px 0;">
+    <script type="text/javascript">
+        atOptions = {
+            'key' : 'f9e40eb3b3cd05f1038aac7b36b33ad2',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+        };
+    </script>
+    <script type="text/javascript" src="https://upholdbrilliancerecast.com/f9e40eb3b3cd05f1038aac7b36b33ad2/invoke.js"></script>
+</div>
+
+            
+</body>
+</html>
